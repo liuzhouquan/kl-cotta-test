@@ -77,7 +77,11 @@ def zenodo_download(record_id: str, filenames_to_download: Set[str],
                 "The hash of the downloaded file does not match"
                 " the expected one.")
         print("Download finished, extracting...")
-        shutil.unpack_archive(filename,
-                              extract_dir=save_dir,
-                              format=file["type"])
+        # Some Zenodo APIs don't include a 'type' field; let shutil infer from the filename.
+        try:
+            shutil.unpack_archive(filename, extract_dir=save_dir)
+        except Exception:
+            # Fallback: if inference fails, try common formats based on extension.
+            # For CIFAR-10-C we typically get a .tar archive.
+            shutil.unpack_archive(filename, extract_dir=save_dir, format="tar")
         print("Downloaded and extracted.")

@@ -95,6 +95,10 @@ _C.OPTIM.MT = 0.999
 _C.OPTIM.RST = 0.01
 _C.OPTIM.AP = 0.92
 
+# ------------------------------- KL-Gate options ---------------------------- #
+_C.KL_GATE = CfgNode()
+_C.KL_GATE.THRESHOLD = 0.1
+
 # ------------------------------- Testing options --------------------------- #
 _C.TEST = CfgNode()
 
@@ -181,7 +185,9 @@ def load_cfg_fom_args(description="Config options."):
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
-    args = parser.parse_args()
+    # Allow extra CLI arguments (e.g., script-specific flags like --thr)
+    # so that downstream scripts can extend the CLI without breaking config parsing.
+    args, _ = parser.parse_known_args()
 
     merge_from_file(args.cfg_file)
     cfg.merge_from_list(args.opts)

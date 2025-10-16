@@ -4,8 +4,8 @@ import torch
 import torch.nn as nn
 import torch.jit
 
-import PIL
 import torchvision.transforms as transforms
+from torchvision.transforms import InterpolationMode
 import my_transforms as my_transforms
 from time import time
 import logging
@@ -34,8 +34,8 @@ def get_tta_transforms(gaussian_std: float=0.005, soft=False, clip_inputs=False)
             translate=(1/16, 1/16),
             scale=(0.95, 1.05) if soft else (0.9, 1.1),
             shear=None,
-            resample=PIL.Image.BILINEAR,
-            fillcolor=None
+            interpolation=InterpolationMode.BILINEAR,
+            fill=None
         ),
         transforms.GaussianBlur(kernel_size=5, sigma=[0.001, 0.25] if soft else [0.001, 0.5]),
         transforms.CenterCrop(size=n_pixels),

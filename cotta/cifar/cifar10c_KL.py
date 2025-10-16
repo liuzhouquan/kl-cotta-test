@@ -40,7 +40,13 @@ def evaluate_kl_gate_cotta(description):
         kl_threshold = args.kl_threshold
     
     # Load configuration
-    load_cfg_fom_args(description)
+    # Ensure config parser sees only config-related args (avoid '--thr' etc.)
+    original_argv = sys.argv[:]
+    try:
+        sys.argv = [sys.argv[0], "--cfg", args.cfg_file] + (args.opts or [])
+        load_cfg_fom_args(description)
+    finally:
+        sys.argv = original_argv
     
     # Configure model
     base_model = load_model(cfg.MODEL.ARCH, cfg.CKPT_DIR,
