@@ -1,3 +1,7 @@
+# I have a docker hub image named: liuzhouquan/cotta-env
+# U can use that one as a template to create an instance
+# or U can run setup_env.sh to create a conda env
+
 # 步骤 1: 选择一个包含 Miniconda 的基础镜像
 # 这是一个官方维护的、干净的 Miniconda 环境
 FROM continuumio/miniconda3:latest
