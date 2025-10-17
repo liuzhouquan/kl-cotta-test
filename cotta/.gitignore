@@ -109,6 +109,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+*.pt
+/cifar/data/
 
 # Spyder project settings
 .spyderproject

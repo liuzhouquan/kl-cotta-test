@@ -47,6 +47,10 @@ def evaluate_kl_gate_cotta(description):
         load_cfg_fom_args(description)
     finally:
         sys.argv = original_argv
+
+    cfg.defrost()
+    cfg.KL_GATE.THRESHOLD = kl_threshold
+    cfg.freeze()
     
     # Configure model
     base_model = load_model(cfg.MODEL.ARCH, cfg.CKPT_DIR,

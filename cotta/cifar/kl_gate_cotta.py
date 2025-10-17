@@ -99,7 +99,7 @@ class KLGateCoTTA(nn.Module):
         
         # KL-Gate: Skip update if KL divergence is too high
         if self.kl_threshold > 0 and kl_div > self.kl_threshold:
-            logger.debug(f"KL-Gate triggered: KL={kl_div:.4f} > threshold={self.kl_threshold:.4f}, skipping update")
+            logger.info(f"KL-Gate triggered: KL={kl_div:.4f} > threshold={self.kl_threshold:.4f}, skipping update")
             # Return teacher outputs without updating
             return teacher_outputs.detach()
         
