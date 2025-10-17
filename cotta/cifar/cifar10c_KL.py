@@ -79,6 +79,9 @@ def evaluate_kl_gate_cotta(description):
     total_update_count = 0
     
     prev_ct = "x0"
+    prev_forward_count = 0
+    prev_update_count = 0
+    
     for severity in cfg.CORRUPTION.SEVERITY:
         for i_c, corruption_type in enumerate(cfg.CORRUPTION.TYPE):
             # Reset model for each corruption type
@@ -86,6 +89,8 @@ def evaluate_kl_gate_cotta(description):
                 try:
                     model.reset()
                     model.reset_stats()  # Reset efficiency stats
+                    prev_forward_count = 0
+                    prev_update_count = 0
                     logger.info("resetting model")
                 except:
                     logger.warning("not resetting model")
@@ -105,13 +110,23 @@ def evaluate_kl_gate_cotta(description):
             
             # Get efficiency stats for this corruption
             efficiency, update_count, forward_count = model.get_efficiency_stats()
-            total_forward_count += forward_count
-            total_update_count += update_count
+            
+            # Calculate incremental stats for this corruption
+            incremental_forward = forward_count - prev_forward_count
+            incremental_update = update_count - prev_update_count
+            
+            # Accumulate incremental stats
+            total_forward_count += incremental_forward
+            total_update_count += incremental_update
+            
+            # Update previous values for next iteration
+            prev_forward_count = forward_count
+            prev_update_count = update_count
             
             # Log results for this corruption
             logger.info(f"Corruption: {corruption_type}{severity}, "
                        f"Error: {err:.2%}, "
-                       f"Updates: {update_count}/{forward_count} ({efficiency:.1%})")
+                       f"Updates: {incremental_update}/{incremental_forward} ({efficiency:.1%})")
     
     # Calculate overall statistics
     overall_error = sum(total_errors) / len(total_errors)
