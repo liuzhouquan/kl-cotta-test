@@ -1,0 +1,426 @@
+[25/10/18 08:39:22] [conf.py:  219]: PyTorch Version: torch=2.9.0+cu128, cuda=12.8, cudnn=91002
+[25/10/18 08:39:22] [conf.py:  221]: BN:
+  EPS: 1e-05
+  MOM: 0.1
+CKPT_DIR: ./ckpt
+CORRUPTION:
+  DATASET: cifar10
+  NUM_EX: 10000
+  SEVERITY: [5]
+  TYPE: ['gaussian_noise', 'shot_noise', 'impulse_noise', 'defocus_blur', 'glass_blur', 'motion_blur', 'zoom_blur', 'snow', 'frost', 'fog', 'brightness', 'contrast', 'elastic_transform', 'pixelate', 'jpeg_compression']
+CUDNN:
+  BENCHMARK: True
+DATA_DIR: ./data
+DESC: 
+KL_GATE:
+  THRESHOLD: 0.1
+LOG_DEST: kl_gate_cotta_rev_251018_083922.txt
+LOG_TIME: 251018_083922
+MODEL:
+  ADAPTATION: kl_gate_cotta_rev
+  ARCH: Standard
+  EPISODIC: False
+OPTIM:
+  AP: 0.92
+  BETA: 0.9
+  DAMPENING: 0.0
+  LR: 0.001
+  METHOD: Adam
+  MOMENTUM: 0.9
+  MT: 0.999
+  NESTEROV: True
+  RST: 0.01
+  STEPS: 1
+  WD: 0.0
+RNG_SEED: 1
+SAVE_DIR: ./output
+TEST:
+  BATCH_SIZE: 400
+[25/10/18 08:39:23] [kl_gate_cotta_rev.py:  162]: model for adaptation: WideResNet(
+  (conv1): Conv2d(3, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (block1): NetworkBlock(
+    (layer): Sequential(
+      (0): BasicBlock(
+        (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(16, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (convShortcut): Conv2d(16, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      )
+      (1): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (2): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (3): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+    )
+  )
+  (block2): NetworkBlock(
+    (layer): Sequential(
+      (0): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 320, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (convShortcut): Conv2d(160, 320, kernel_size=(1, 1), stride=(2, 2), bias=False)
+      )
+      (1): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (2): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (3): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+    )
+  )
+  (block3): NetworkBlock(
+    (layer): Sequential(
+      (0): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 640, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (convShortcut): Conv2d(320, 640, kernel_size=(1, 1), stride=(2, 2), bias=False)
+      )
+      (1): BasicBlock(
+        (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (2): BasicBlock(
+        (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (3): BasicBlock(
+        (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+    )
+  )
+  (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+  (relu): ReLU(inplace=True)
+  (fc): Linear(in_features=640, out_features=10, bias=True)
+)
+[25/10/18 08:39:23] [kl_gate_cotta_rev.py:  163]: params for adaptation: ['conv1.weight', 'block1.layer.0.bn1.weight', 'block1.layer.0.bn1.bias', 'block1.layer.0.conv1.weight', 'block1.layer.0.bn2.weight', 'block1.layer.0.bn2.bias', 'block1.layer.0.conv2.weight', 'block1.layer.0.convShortcut.weight', 'block1.layer.1.bn1.weight', 'block1.layer.1.bn1.bias', 'block1.layer.1.conv1.weight', 'block1.layer.1.bn2.weight', 'block1.layer.1.bn2.bias', 'block1.layer.1.conv2.weight', 'block1.layer.2.bn1.weight', 'block1.layer.2.bn1.bias', 'block1.layer.2.conv1.weight', 'block1.layer.2.bn2.weight', 'block1.layer.2.bn2.bias', 'block1.layer.2.conv2.weight', 'block1.layer.3.bn1.weight', 'block1.layer.3.bn1.bias', 'block1.layer.3.conv1.weight', 'block1.layer.3.bn2.weight', 'block1.layer.3.bn2.bias', 'block1.layer.3.conv2.weight', 'block2.layer.0.bn1.weight', 'block2.layer.0.bn1.bias', 'block2.layer.0.conv1.weight', 'block2.layer.0.bn2.weight', 'block2.layer.0.bn2.bias', 'block2.layer.0.conv2.weight', 'block2.layer.0.convShortcut.weight', 'block2.layer.1.bn1.weight', 'block2.layer.1.bn1.bias', 'block2.layer.1.conv1.weight', 'block2.layer.1.bn2.weight', 'block2.layer.1.bn2.bias', 'block2.layer.1.conv2.weight', 'block2.layer.2.bn1.weight', 'block2.layer.2.bn1.bias', 'block2.layer.2.conv1.weight', 'block2.layer.2.bn2.weight', 'block2.layer.2.bn2.bias', 'block2.layer.2.conv2.weight', 'block2.layer.3.bn1.weight', 'block2.layer.3.bn1.bias', 'block2.layer.3.conv1.weight', 'block2.layer.3.bn2.weight', 'block2.layer.3.bn2.bias', 'block2.layer.3.conv2.weight', 'block3.layer.0.bn1.weight', 'block3.layer.0.bn1.bias', 'block3.layer.0.conv1.weight', 'block3.layer.0.bn2.weight', 'block3.layer.0.bn2.bias', 'block3.layer.0.conv2.weight', 'block3.layer.0.convShortcut.weight', 'block3.layer.1.bn1.weight', 'block3.layer.1.bn1.bias', 'block3.layer.1.conv1.weight', 'block3.layer.1.bn2.weight', 'block3.layer.1.bn2.bias', 'block3.layer.1.conv2.weight', 'block3.layer.2.bn1.weight', 'block3.layer.2.bn1.bias', 'block3.layer.2.conv1.weight', 'block3.layer.2.bn2.weight', 'block3.layer.2.bn2.bias', 'block3.layer.2.conv2.weight', 'block3.layer.3.bn1.weight', 'block3.layer.3.bn1.bias', 'block3.layer.3.conv1.weight', 'block3.layer.3.bn2.weight', 'block3.layer.3.bn2.bias', 'block3.layer.3.conv2.weight', 'bn1.weight', 'bn1.bias', 'fc.weight', 'fc.bias']
+[25/10/18 08:39:23] [kl_gate_cotta_rev.py:  164]: optimizer for adaptation: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    decoupled_weight_decay: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0.0
+)
+[25/10/18 08:39:23] [kl_gate_cotta_rev.py:  165]: KL threshold (rev): 0.3
+[25/10/18 08:39:23] [cifar10c_KL_rev.py:   78]: Running KL-Gate-Rev CoTTA with threshold: 0.3
+[25/10/18 08:39:23] [cifar10c_KL_rev.py:   98]: resetting model
+[25/10/18 08:39:33] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.0000 < threshold=0.3000, skipping update
+[25/10/18 08:39:37] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=-0.0000 < threshold=0.3000, skipping update
+[25/10/18 08:41:21] [cifar10c_KL_rev.py:  131]: Corruption: gaussian_noise5, Error: 24.40%, Updates: 23/25 (92.0%)
+[25/10/18 08:41:21] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:43:12] [cifar10c_KL_rev.py:  131]: Corruption: shot_noise5, Error: 22.86%, Updates: 25/25 (96.0%)
+[25/10/18 08:43:12] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:45:05] [cifar10c_KL_rev.py:  131]: Corruption: impulse_noise5, Error: 26.60%, Updates: 25/25 (97.3%)
+[25/10/18 08:45:05] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:45:23] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2573 < threshold=0.3000, skipping update
+[25/10/18 08:45:26] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2580 < threshold=0.3000, skipping update
+[25/10/18 08:45:30] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2653 < threshold=0.3000, skipping update
+[25/10/18 08:45:34] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2791 < threshold=0.3000, skipping update
+[25/10/18 08:45:37] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2741 < threshold=0.3000, skipping update
+[25/10/18 08:45:41] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2818 < threshold=0.3000, skipping update
+[25/10/18 08:45:44] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2713 < threshold=0.3000, skipping update
+[25/10/18 08:45:52] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2997 < threshold=0.3000, skipping update
+[25/10/18 08:45:56] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2766 < threshold=0.3000, skipping update
+[25/10/18 08:45:59] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2747 < threshold=0.3000, skipping update
+[25/10/18 08:46:08] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2759 < threshold=0.3000, skipping update
+[25/10/18 08:46:16] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2614 < threshold=0.3000, skipping update
+[25/10/18 08:46:19] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2882 < threshold=0.3000, skipping update
+[25/10/18 08:46:23] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2838 < threshold=0.3000, skipping update
+[25/10/18 08:46:31] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2506 < threshold=0.3000, skipping update
+[25/10/18 08:46:42] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2311 < threshold=0.3000, skipping update
+[25/10/18 08:46:42] [cifar10c_KL_rev.py:  131]: Corruption: defocus_blur5, Error: 12.05%, Updates: 9/25 (82.0%)
+[25/10/18 08:46:42] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:48:24] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2820 < threshold=0.3000, skipping update
+[25/10/18 08:48:28] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2890 < threshold=0.3000, skipping update
+[25/10/18 08:48:32] [cifar10c_KL_rev.py:  131]: Corruption: glass_blur5, Error: 28.39%, Updates: 23/25 (84.0%)
+[25/10/18 08:48:32] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:48:41] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2786 < threshold=0.3000, skipping update
+[25/10/18 08:48:44] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2745 < threshold=0.3000, skipping update
+[25/10/18 08:48:56] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2510 < threshold=0.3000, skipping update
+[25/10/18 08:49:00] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2751 < threshold=0.3000, skipping update
+[25/10/18 08:49:04] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2588 < threshold=0.3000, skipping update
+[25/10/18 08:49:12] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2489 < threshold=0.3000, skipping update
+[25/10/18 08:49:15] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2301 < threshold=0.3000, skipping update
+[25/10/18 08:49:19] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2340 < threshold=0.3000, skipping update
+[25/10/18 08:49:22] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2682 < threshold=0.3000, skipping update
+[25/10/18 08:49:26] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2077 < threshold=0.3000, skipping update
+[25/10/18 08:49:29] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2841 < threshold=0.3000, skipping update
+[25/10/18 08:49:33] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2400 < threshold=0.3000, skipping update
+[25/10/18 08:49:37] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2386 < threshold=0.3000, skipping update
+[25/10/18 08:49:40] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2877 < threshold=0.3000, skipping update
+[25/10/18 08:49:44] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2457 < threshold=0.3000, skipping update
+[25/10/18 08:49:47] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2696 < threshold=0.3000, skipping update
+[25/10/18 08:49:51] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2501 < threshold=0.3000, skipping update
+[25/10/18 08:49:54] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2474 < threshold=0.3000, skipping update
+[25/10/18 08:49:58] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2623 < threshold=0.3000, skipping update
+[25/10/18 08:50:01] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2269 < threshold=0.3000, skipping update
+[25/10/18 08:50:05] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2631 < threshold=0.3000, skipping update
+[25/10/18 08:50:05] [cifar10c_KL_rev.py:  131]: Corruption: motion_blur5, Error: 12.97%, Updates: 4/25 (72.7%)
+[25/10/18 08:50:05] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:50:09] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2080 < threshold=0.3000, skipping update
+[25/10/18 08:50:12] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2383 < threshold=0.3000, skipping update
+[25/10/18 08:50:16] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2534 < threshold=0.3000, skipping update
+[25/10/18 08:50:19] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1914 < threshold=0.3000, skipping update
+[25/10/18 08:50:23] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1926 < threshold=0.3000, skipping update
+[25/10/18 08:50:26] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2751 < threshold=0.3000, skipping update
+[25/10/18 08:50:30] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2355 < threshold=0.3000, skipping update
+[25/10/18 08:50:33] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2405 < threshold=0.3000, skipping update
+[25/10/18 08:50:37] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2566 < threshold=0.3000, skipping update
+[25/10/18 08:50:40] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2570 < threshold=0.3000, skipping update
+[25/10/18 08:50:44] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2045 < threshold=0.3000, skipping update
+[25/10/18 08:50:48] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2812 < threshold=0.3000, skipping update
+[25/10/18 08:50:51] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2424 < threshold=0.3000, skipping update
+[25/10/18 08:50:55] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2607 < threshold=0.3000, skipping update
+[25/10/18 08:50:58] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2432 < threshold=0.3000, skipping update
+[25/10/18 08:51:02] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2374 < threshold=0.3000, skipping update
+[25/10/18 08:51:05] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2089 < threshold=0.3000, skipping update
+[25/10/18 08:51:09] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2738 < threshold=0.3000, skipping update
+[25/10/18 08:51:12] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2579 < threshold=0.3000, skipping update
+[25/10/18 08:51:15] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2425 < threshold=0.3000, skipping update
+[25/10/18 08:51:19] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2421 < threshold=0.3000, skipping update
+[25/10/18 08:51:22] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2518 < threshold=0.3000, skipping update
+[25/10/18 08:51:26] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2233 < threshold=0.3000, skipping update
+[25/10/18 08:51:29] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2295 < threshold=0.3000, skipping update
+[25/10/18 08:51:33] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2545 < threshold=0.3000, skipping update
+[25/10/18 08:51:33] [cifar10c_KL_rev.py:  131]: Corruption: zoom_blur5, Error: 10.98%, Updates: 0/25 (62.3%)
+[25/10/18 08:51:33] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:51:37] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2677 < threshold=0.3000, skipping update
+[25/10/18 08:51:40] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2300 < threshold=0.3000, skipping update
+[25/10/18 08:51:44] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2819 < threshold=0.3000, skipping update
+[25/10/18 08:51:47] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2708 < threshold=0.3000, skipping update
+[25/10/18 08:51:51] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2845 < threshold=0.3000, skipping update
+[25/10/18 08:51:54] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2869 < threshold=0.3000, skipping update
+[25/10/18 08:52:02] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2755 < threshold=0.3000, skipping update
+[25/10/18 08:52:06] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2663 < threshold=0.3000, skipping update
+[25/10/18 08:52:14] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1995 < threshold=0.3000, skipping update
+[25/10/18 08:52:18] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2430 < threshold=0.3000, skipping update
+[25/10/18 08:52:21] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2801 < threshold=0.3000, skipping update
+[25/10/18 08:52:25] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2597 < threshold=0.3000, skipping update
+[25/10/18 08:52:28] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2673 < threshold=0.3000, skipping update
+[25/10/18 08:52:32] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2471 < threshold=0.3000, skipping update
+[25/10/18 08:52:36] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2827 < threshold=0.3000, skipping update
+[25/10/18 08:52:39] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2768 < threshold=0.3000, skipping update
+[25/10/18 08:52:43] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2724 < threshold=0.3000, skipping update
+[25/10/18 08:52:46] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2709 < threshold=0.3000, skipping update
+[25/10/18 08:52:50] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2641 < threshold=0.3000, skipping update
+[25/10/18 08:52:53] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2944 < threshold=0.3000, skipping update
+[25/10/18 08:52:57] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2540 < threshold=0.3000, skipping update
+[25/10/18 08:53:00] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2511 < threshold=0.3000, skipping update
+[25/10/18 08:53:04] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2338 < threshold=0.3000, skipping update
+[25/10/18 08:53:04] [cifar10c_KL_rev.py:  131]: Corruption: snow5, Error: 16.23%, Updates: 2/25 (55.5%)
+[25/10/18 08:53:04] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:53:08] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2647 < threshold=0.3000, skipping update
+[25/10/18 08:53:11] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2452 < threshold=0.3000, skipping update
+[25/10/18 08:53:15] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2619 < threshold=0.3000, skipping update
+[25/10/18 08:53:18] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2587 < threshold=0.3000, skipping update
+[25/10/18 08:53:22] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2588 < threshold=0.3000, skipping update
+[25/10/18 08:53:25] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2981 < threshold=0.3000, skipping update
+[25/10/18 08:53:29] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2564 < threshold=0.3000, skipping update
+[25/10/18 08:53:32] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2656 < threshold=0.3000, skipping update
+[25/10/18 08:53:36] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2593 < threshold=0.3000, skipping update
+[25/10/18 08:53:39] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2293 < threshold=0.3000, skipping update
+[25/10/18 08:53:43] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2167 < threshold=0.3000, skipping update
+[25/10/18 08:53:47] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2683 < threshold=0.3000, skipping update
+[25/10/18 08:53:50] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2653 < threshold=0.3000, skipping update
+[25/10/18 08:53:54] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2635 < threshold=0.3000, skipping update
+[25/10/18 08:53:57] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2655 < threshold=0.3000, skipping update
+[25/10/18 08:54:01] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2781 < threshold=0.3000, skipping update
+[25/10/18 08:54:04] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2662 < threshold=0.3000, skipping update
+[25/10/18 08:54:08] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2737 < threshold=0.3000, skipping update
+[25/10/18 08:54:11] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2422 < threshold=0.3000, skipping update
+[25/10/18 08:54:15] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2625 < threshold=0.3000, skipping update
+[25/10/18 08:54:18] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2703 < threshold=0.3000, skipping update
+[25/10/18 08:54:22] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2710 < threshold=0.3000, skipping update
+[25/10/18 08:54:25] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2596 < threshold=0.3000, skipping update
+[25/10/18 08:54:29] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2582 < threshold=0.3000, skipping update
+[25/10/18 08:54:33] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2634 < threshold=0.3000, skipping update
+[25/10/18 08:54:33] [cifar10c_KL_rev.py:  131]: Corruption: frost5, Error: 15.77%, Updates: 0/25 (49.3%)
+[25/10/18 08:54:33] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:54:36] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2322 < threshold=0.3000, skipping update
+[25/10/18 08:54:40] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2410 < threshold=0.3000, skipping update
+[25/10/18 08:54:43] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2569 < threshold=0.3000, skipping update
+[25/10/18 08:54:47] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2197 < threshold=0.3000, skipping update
+[25/10/18 08:54:50] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2386 < threshold=0.3000, skipping update
+[25/10/18 08:54:54] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2716 < threshold=0.3000, skipping update
+[25/10/18 08:54:58] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2635 < threshold=0.3000, skipping update
+[25/10/18 08:55:01] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2606 < threshold=0.3000, skipping update
+[25/10/18 08:55:05] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2435 < threshold=0.3000, skipping update
+[25/10/18 08:55:08] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2430 < threshold=0.3000, skipping update
+[25/10/18 08:55:12] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2293 < threshold=0.3000, skipping update
+[25/10/18 08:55:15] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2818 < threshold=0.3000, skipping update
+[25/10/18 08:55:19] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2636 < threshold=0.3000, skipping update
+[25/10/18 08:55:22] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2696 < threshold=0.3000, skipping update
+[25/10/18 08:55:26] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2613 < threshold=0.3000, skipping update
+[25/10/18 08:55:29] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2630 < threshold=0.3000, skipping update
+[25/10/18 08:55:33] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2617 < threshold=0.3000, skipping update
+[25/10/18 08:55:36] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2839 < threshold=0.3000, skipping update
+[25/10/18 08:55:40] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2361 < threshold=0.3000, skipping update
+[25/10/18 08:55:43] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2474 < threshold=0.3000, skipping update
+[25/10/18 08:55:47] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2727 < threshold=0.3000, skipping update
+[25/10/18 08:55:50] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2939 < threshold=0.3000, skipping update
+[25/10/18 08:55:54] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2607 < threshold=0.3000, skipping update
+[25/10/18 08:55:57] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2439 < threshold=0.3000, skipping update
+[25/10/18 08:56:01] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2806 < threshold=0.3000, skipping update
+[25/10/18 08:56:01] [cifar10c_KL_rev.py:  131]: Corruption: fog5, Error: 14.20%, Updates: 0/25 (44.4%)
+[25/10/18 08:56:01] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:56:05] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1662 < threshold=0.3000, skipping update
+[25/10/18 08:56:08] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1565 < threshold=0.3000, skipping update
+[25/10/18 08:56:12] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1754 < threshold=0.3000, skipping update
+[25/10/18 08:56:15] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1491 < threshold=0.3000, skipping update
+[25/10/18 08:56:19] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1735 < threshold=0.3000, skipping update
+[25/10/18 08:56:22] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1781 < threshold=0.3000, skipping update
+[25/10/18 08:56:26] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1859 < threshold=0.3000, skipping update
+[25/10/18 08:56:29] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1923 < threshold=0.3000, skipping update
+[25/10/18 08:56:33] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1540 < threshold=0.3000, skipping update
+[25/10/18 08:56:36] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1642 < threshold=0.3000, skipping update
+[25/10/18 08:56:40] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1403 < threshold=0.3000, skipping update
+[25/10/18 08:56:44] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1937 < threshold=0.3000, skipping update
+[25/10/18 08:56:47] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1702 < threshold=0.3000, skipping update
+[25/10/18 08:56:51] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1649 < threshold=0.3000, skipping update
+[25/10/18 08:56:54] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1767 < threshold=0.3000, skipping update
+[25/10/18 08:56:58] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1827 < threshold=0.3000, skipping update
+[25/10/18 08:57:01] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1923 < threshold=0.3000, skipping update
+[25/10/18 08:57:05] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1644 < threshold=0.3000, skipping update
+[25/10/18 08:57:08] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1817 < threshold=0.3000, skipping update
+[25/10/18 08:57:12] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1794 < threshold=0.3000, skipping update
+[25/10/18 08:57:15] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1985 < threshold=0.3000, skipping update
+[25/10/18 08:57:19] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1899 < threshold=0.3000, skipping update
+[25/10/18 08:57:22] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1708 < threshold=0.3000, skipping update
+[25/10/18 08:57:26] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1879 < threshold=0.3000, skipping update
+[25/10/18 08:57:29] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1865 < threshold=0.3000, skipping update
+[25/10/18 08:57:29] [cifar10c_KL_rev.py:  131]: Corruption: brightness5, Error: 8.00%, Updates: 0/25 (40.4%)
+[25/10/18 08:57:29] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:57:33] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1987 < threshold=0.3000, skipping update
+[25/10/18 08:57:37] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2370 < threshold=0.3000, skipping update
+[25/10/18 08:57:40] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2641 < threshold=0.3000, skipping update
+[25/10/18 08:57:44] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2036 < threshold=0.3000, skipping update
+[25/10/18 08:57:47] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2217 < threshold=0.3000, skipping update
+[25/10/18 08:57:51] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2775 < threshold=0.3000, skipping update
+[25/10/18 08:57:54] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2332 < threshold=0.3000, skipping update
+[25/10/18 08:57:58] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2118 < threshold=0.3000, skipping update
+[25/10/18 08:58:01] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2219 < threshold=0.3000, skipping update
+[25/10/18 08:58:05] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2183 < threshold=0.3000, skipping update
+[25/10/18 08:58:08] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2025 < threshold=0.3000, skipping update
+[25/10/18 08:58:12] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2628 < threshold=0.3000, skipping update
+[25/10/18 08:58:15] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2626 < threshold=0.3000, skipping update
+[25/10/18 08:58:19] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2330 < threshold=0.3000, skipping update
+[25/10/18 08:58:22] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2600 < threshold=0.3000, skipping update
+[25/10/18 08:58:26] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2114 < threshold=0.3000, skipping update
+[25/10/18 08:58:30] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2336 < threshold=0.3000, skipping update
+[25/10/18 08:58:33] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2553 < threshold=0.3000, skipping update
+[25/10/18 08:58:37] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2287 < threshold=0.3000, skipping update
+[25/10/18 08:58:40] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2599 < threshold=0.3000, skipping update
+[25/10/18 08:58:44] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2961 < threshold=0.3000, skipping update
+[25/10/18 08:58:47] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2519 < threshold=0.3000, skipping update
+[25/10/18 08:58:51] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2467 < threshold=0.3000, skipping update
+[25/10/18 08:58:54] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2605 < threshold=0.3000, skipping update
+[25/10/18 08:58:58] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2782 < threshold=0.3000, skipping update
+[25/10/18 08:58:58] [cifar10c_KL_rev.py:  131]: Corruption: contrast5, Error: 12.07%, Updates: 0/25 (37.0%)
+[25/10/18 08:58:58] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 08:59:42] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2943 < threshold=0.3000, skipping update
+[25/10/18 09:00:50] [cifar10c_KL_rev.py:  131]: Corruption: elastic_transform5, Error: 21.14%, Updates: 24/25 (41.5%)
+[25/10/18 09:00:50] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 09:00:59] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2644 < threshold=0.3000, skipping update
+[25/10/18 09:01:02] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2656 < threshold=0.3000, skipping update
+[25/10/18 09:01:10] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2932 < threshold=0.3000, skipping update
+[25/10/18 09:01:13] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2866 < threshold=0.3000, skipping update
+[25/10/18 09:01:17] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2830 < threshold=0.3000, skipping update
+[25/10/18 09:01:20] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2652 < threshold=0.3000, skipping update
+[25/10/18 09:01:28] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2443 < threshold=0.3000, skipping update
+[25/10/18 09:01:31] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2773 < threshold=0.3000, skipping update
+[25/10/18 09:01:35] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2770 < threshold=0.3000, skipping update
+[25/10/18 09:01:43] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2533 < threshold=0.3000, skipping update
+[25/10/18 09:01:46] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2808 < threshold=0.3000, skipping update
+[25/10/18 09:01:49] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2856 < threshold=0.3000, skipping update
+[25/10/18 09:01:52] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2428 < threshold=0.3000, skipping update
+[25/10/18 09:02:00] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2919 < threshold=0.3000, skipping update
+[25/10/18 09:02:08] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2863 < threshold=0.3000, skipping update
+[25/10/18 09:02:12] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2575 < threshold=0.3000, skipping update
+[25/10/18 09:02:15] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2332 < threshold=0.3000, skipping update
+[25/10/18 09:02:19] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2986 < threshold=0.3000, skipping update
+[25/10/18 09:02:22] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2712 < threshold=0.3000, skipping update
+[25/10/18 09:02:22] [cifar10c_KL_rev.py:  131]: Corruption: pixelate5, Error: 17.06%, Updates: 6/25 (40.3%)
+[25/10/18 09:02:22] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/18 09:02:44] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2661 < threshold=0.3000, skipping update
+[25/10/18 09:02:52] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2887 < threshold=0.3000, skipping update
+[25/10/18 09:02:56] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2631 < threshold=0.3000, skipping update
+[25/10/18 09:03:13] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2934 < threshold=0.3000, skipping update
+[25/10/18 09:03:25] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2918 < threshold=0.3000, skipping update
+[25/10/18 09:03:43] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2954 < threshold=0.3000, skipping update
+[25/10/18 09:03:46] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2684 < threshold=0.3000, skipping update
+[25/10/18 09:04:04] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2693 < threshold=0.3000, skipping update
+[25/10/18 09:04:07] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.2851 < threshold=0.3000, skipping update
+[25/10/18 09:04:07] [cifar10c_KL_rev.py:  131]: Corruption: jpeg_compression5, Error: 20.70%, Updates: 16/25 (41.9%)
+[25/10/18 09:04:07] [cifar10c_KL_rev.py:  140]: ============================================================
+[25/10/18 09:04:07] [cifar10c_KL_rev.py:  144]: KL-Gate-Rev CoTTA Results (threshold=0.3):
+[25/10/18 09:04:07] [cifar10c_KL_rev.py:  145]: Overall Error: 17.56%
+[25/10/18 09:04:07] [cifar10c_KL_rev.py:  146]: Total Efficiency: 41.9% (157/375 updates)
+[25/10/18 09:04:07] [cifar10c_KL_rev.py:  147]: Average Error per Corruption: 17.56%
+[25/10/18 09:04:07] [cifar10c_KL_rev.py:  148]: ============================================================
