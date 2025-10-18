@@ -1,0 +1,39 @@
+MODEL:
+  ADAPTATION: kl_gate_cotta_rev
+  ARCH: Standard
+  EPISODIC: False
+TEST:
+  BATCH_SIZE: 400
+CORRUPTION:
+  DATASET: cifar10
+  NUM_EX: 10000
+  SEVERITY:
+    - 5
+  TYPE:
+    - gaussian_noise
+    - shot_noise
+    - impulse_noise
+    - defocus_blur
+    - glass_blur
+    - motion_blur
+    - zoom_blur
+    - snow
+    - frost
+    - fog
+    - brightness
+    - contrast
+    - elastic_transform
+    - pixelate
+    - jpeg_compression
+OPTIM:
+  METHOD: Adam
+  STEPS: 1
+  BETA: 0.9
+  LR: 1e-3
+  WD: 0.
+  MT: 0.999
+  RST: 0.01
+  AP: 0.92
+# KL-Gate Rev specific parameters
+KL_GATE:
+  THRESHOLD: 0.1  # Default threshold, can be overridden by command line
