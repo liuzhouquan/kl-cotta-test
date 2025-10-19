@@ -1,146 +1,184 @@
-# KL-Gate CoTTA Implementation
+# Enhanced CoTTA: KL-Gate Based Continual Test-Time Adaptation
+This repository contains enhanced variants of CoTTA with KL-Gate mechanism for selective updates during test-time adaptation.
 
-This implementation adds a KL divergence gate to the CoTTA (Continual Test-Time Adaptation) method for CIFAR-10C evaluation.
+## Background
+The original CoTTA method performs continuous updates on all test samples, which can be computationally expensive and potentially noisy. This work introduces a KL-Gate mechanism that selectively updates the model based on the KL divergence between teacher and student predictions. After initial experiments with the basic KL-Gate, several enhanced variants were developed to address the static threshold limitation and improve adaptation effectiveness.
 
-## Overview
+## Enhanced CoTTA Variants
+This repository includes several enhanced variants of CoTTA with KL-Gate mechanism:
 
-The KL-Gate CoTTA method introduces a threshold-based mechanism to skip model updates when the KL divergence between teacher and student models exceeds a specified threshold. This is based on the hypothesis that high KL divergence indicates the teacher model is not trustworthy, so updates should be skipped to avoid harmful adaptations.
+### 1. KL-Gate CoTTA (Original)
+- **File**: `kl_gate_cotta.py`, `cifar10c_KL.py`
+- **Script**: `run_kl_gate.sh`
+- **Description**: Original KL-Gate mechanism - skips updates when KL > threshold (high disagreement)
+- **Rationale & Hypothesis**:
+  - **Core Idea**: When teacher and student predictions disagree significantly (high KL divergence), the update might be unreliable or noisy
+  - **Assumption**: High KL divergence indicates either model uncertainty or potential noise in the sample
+  - **Expected Benefit**: Skip potentially harmful updates, maintain model stability
+  - **Limitation**: Static threshold can cause learning stagnation if model gets stuck in high-disagreement state
+- **Usage**: `bash run_kl_gate.sh baseline|kl_gate|custom [threshold]`
 
-## Files Created
+### 2. KL-Gate-Rev CoTTA (Reverse Logic)
+- **File**: `kl_gate_cotta_rev.py`, `cifar10c_KL_rev.py`
+- **Script**: `run_kl_gate_rev.sh`
+- **Description**: Reverse KL-Gate logic - skips updates when KL < threshold (high agreement)
+- **Rationale & Hypothesis**:
+  - **Core Idea**: When teacher and student agree well (low KL divergence), the update might be redundant or potentially noisy
+  - **Assumption**: High agreement samples might contain less informative signal for adaptation
+  - **Expected Benefits**: 
+    - Save computation by skipping redundant updates
+    - Filter out potentially noisy consistent predictions
+    - Focus learning on samples where teacher-student disagreement indicates room for improvement
+  - **Hypothesis**: This approach may reduce overfitting and improve generalization
+- **Usage**: `bash run_kl_gate_rev.sh baseline|kl_gate|custom [threshold]`
 
-- `kl_gate_cotta.py` - KL-Gate CoTTA implementation
-- `cifar10c_KL.py` - Main test script with baseline and KL-Gate modes
-- `cfgs/cifar10/kl_gate_cotta.yaml` - Configuration file
-- `run_kl_gate.sh` - Convenient run script
-- `test_imports.py` - Import verification script
+### 3. KL-Regu CoTTA (Soft Weighting)
+- **File**: `kl_regu_cotta.py`, `cifar10c_KL_regu.py`
+- **Script**: `run_kl_regu.sh`
+- **Description**: Soft weighting based on KL divergence instead of hard gating
+- **Rationale & Hypothesis**:
+  - **Core Idea**: Instead of binary skip/update decisions, use continuous weights based on KL divergence
+  - **Mathematical Formulation**: 
+    - Sample weights: `w_i = exp(-KL_i / τ)`
+    - Weighted loss: `L = (Σ_i w_i L_i) / (Σ_i w_i + ε)`
+  - **Assumptions**:
+    - All samples contain some useful information, but with varying reliability
+    - Smooth weighting is more robust than hard decisions
+    - Temperature parameter τ controls the sensitivity of weighting
+  - **Expected Benefits**:
+    - Prevents learning stagnation (no complete skipping)
+    - Automatically down-weights potentially noisy samples
+    - Maintains continuous learning while filtering noise
+- **Parameters**:
+  - `--tau`: Temperature parameter (higher = smoother weighting)
+  - `--eps`: Numerical stability parameter
+- **Usage**: `bash run_kl_regu.sh baseline|kl_regu|custom [tau] [eps]`
 
-## Usage
+### 4. KL-Force CoTTA (Forced Updates)
+- **File**: `kl_force_cotta.py`, `cifar10c_KL_force.py`
+- **Script**: `run_kl_force.sh`
+- **Description**: Forced update mechanism to prevent learning stagnation
+- **Rationale & Hypothesis**:
+  - **Core Idea**: Address the static threshold problem by forcing updates after consecutive skips
+  - **Problem Addressed**: Original KL-Gate can get stuck in high-disagreement states, completely halting learning
+  - **Assumptions**:
+    - Even high-disagreement samples might contain useful information after some time
+    - Periodic forced updates can help escape local minima
+    - Adaptive threshold adjustment based on recent KL values is more intelligent than fixed threshold
+  - **Expected Benefits**:
+    - Prevents complete learning stagnation
+    - Maintains computational efficiency most of the time
+    - Adaptive variant can learn optimal thresholds from data
+- **Key Features**:
+  - Forces updates after consecutive skips reach a threshold
+  - Optional adaptive threshold adjustment based on recent KL values
+  - Maintains efficiency while preventing complete learning halt
+- **Parameters**:
+  - `--thr`: Initial KL threshold
+  - `--force_interval`: Number of consecutive skips before forced update
+  - `--adaptive`: Enable adaptive threshold adjustment
+- **Usage**: `bash run_kl_force.sh baseline|force|adaptive|custom [threshold] [interval] [adaptive]`
 
-### Quick Start
+### 5. KL-Adaptive CoTTA (Adaptive Threshold)
+- **File**: `kl_adaptive_cotta.py`, `cifar10c_KL_adaptive.py`
+- **Script**: `run_kl_adaptive.sh`
+- **Description**: Adaptive threshold adjustment based on update ratio and warmup phase
+- **Rationale & Hypothesis**:
+  - **Core Idea**: Learn optimal threshold from data and adapt it based on update patterns
+  - **Warmup Phase Hypothesis**: Initial samples can provide a good estimate of typical KL divergence distribution
+  - **Adaptive Adjustment Hypothesis**: 
+    - Low update ratio (< 20%) suggests threshold is too strict → decrease threshold
+    - High update ratio (> 80%) suggests threshold is too loose → increase threshold
+  - **Assumptions**:
+    - Optimal update ratio should be in a reasonable range (e.g., 20%-80%)
+    - KL divergence distribution is relatively stable within a corruption type
+    - Dynamic threshold adjustment can better adapt to different data characteristics
+  - **Expected Benefits**:
+    - Data-driven threshold selection (no manual tuning)
+    - Automatic adaptation to different corruption types
+    - Balanced learning efficiency and effectiveness
+- **Key Features**:
+  - Warmup phase learns initial threshold from first 100 samples
+  - Dynamically adjusts threshold based on update frequency
+  - Balances update efficiency and learning effectiveness
+- **Parameters**:
+  - `--thr`: Initial threshold (overridden by warmup)
+  - `--check_interval`: Samples between threshold checks
+  - `--low_threshold`: Low update ratio threshold (decrease KL threshold)
+  - `--high_threshold`: High update ratio threshold (increase KL threshold)
+  - `--scale_factor`: Scale factor for threshold adjustment
+  - `--warmup_samples`: Number of warmup samples for initial threshold learning
+- **Usage**: `bash run_kl_adaptive.sh baseline|adaptive|custom [threshold] [check_interval] [low_threshold] [high_threshold] [scale_factor] [warmup_samples]`
+  
+## Tasks
++ CIFAR10 -> CIFAR10C (standard)
 
+## Prerequisite
+Please create and activate the following conda envrionment. To reproduce our results, please kindly create and use this environment.
 ```bash
-# Test imports first
-bash run_kl_gate.sh test
-
-# Run baseline CoTTA (original method)
-bash run_kl_gate.sh baseline
-
-# Run KL-Gate CoTTA with default threshold (0.1)
-bash run_kl_gate.sh kl_gate
-
-# Run KL-Gate CoTTA with custom threshold
-bash run_kl_gate.sh custom 0.05
+# It may take several minutes for conda to solve the environment
+conda update conda
+conda env create -f environment.yml
+conda activate cotta 
 ```
 
-### Direct Python Usage
-
+## Experiments
+### Enhanced CoTTA Variants on CIFAR10C
 ```bash
-# Baseline CoTTA (KL-Gate disabled)
-python cifar10c_KL.py --cfg cfgs/cifar10/kl_gate_cotta.yaml --thr 0.0
+cd cifar
 
-# KL-Gate CoTTA with threshold 0.1
-python cifar10c_KL.py --cfg cfgs/cifar10/kl_gate_cotta.yaml --thr 0.1
+# Original KL-Gate CoTTA
+bash run_kl_gate.sh baseline      # Baseline CoTTA (no gating)
+bash run_kl_gate.sh kl_gate       # KL-Gate CoTTA (threshold=0.1)
+bash run_kl_gate.sh custom 0.05   # Custom threshold
 
-# KL-Gate CoTTA with custom threshold
-python cifar10c_KL.py --cfg cfgs/cifar10/kl_gate_cotta.yaml --thr 0.05
+# KL-Gate-Rev CoTTA (Reverse Logic)
+bash run_kl_gate_rev.sh baseline      # Baseline CoTTA
+bash run_kl_gate_rev.sh kl_gate       # KL-Gate-Rev (threshold=0.1)
+bash run_kl_gate_rev.sh custom 0.05   # Custom threshold
 
-# Disable KL-Gate (alternative syntax)
-python cifar10c_KL.py --cfg cfgs/cifar10/kl_gate_cotta.yaml --disable_kl_gate
+# KL-Regu CoTTA (Soft Weighting)
+bash run_kl_regu.sh baseline      # Baseline CoTTA
+bash run_kl_regu.sh kl_regu       # KL-Regu (tau=1.0)
+bash run_kl_regu.sh custom 0.5    # Custom tau
+
+# KL-Force CoTTA (Forced Updates)
+bash run_kl_force.sh baseline         # Baseline CoTTA
+bash run_kl_force.sh force            # Basic forced updates
+bash run_kl_force.sh adaptive         # Adaptive threshold
+bash run_kl_force.sh custom 0.1 5 True  # Custom parameters
+
+# KL-Adaptive CoTTA (Adaptive Threshold)
+bash run_kl_adaptive.sh baseline      # Baseline CoTTA
+bash run_kl_adaptive.sh adaptive      # Default adaptive settings
+bash run_kl_adaptive.sh custom 0.1 10 0.2 0.8 1.2 100  # Custom parameters
 ```
 
-## Key Features
 
-### 1. KL Divergence Gate
-- Computes KL divergence between student and teacher model outputs
-- Skips updates when KL divergence > threshold
-- Default threshold: 0.1 (configurable via command line)
+## Enhanced CoTTA Variants Summary
 
-### 2. Performance Tracking
-- `forward_count`: Total number of forward passes
-- `update_count`: Number of actual updates performed
-- `efficiency`: update_count/forward_count ratio
+The enhanced CoTTA variants address the static threshold limitation in the original KL-Gate mechanism, which can cause learning stagnation when the model encounters high KL divergence samples. Here's a comparison of the approaches:
 
-### 3. Baseline Comparison
-- `--thr 0.0`: Runs original CoTTA for baseline comparison
-- Same tracking metrics for fair comparison
-- Identical codebase ensures consistent evaluation
+| Method | Core Idea | Advantages | Best For |
+|--------|-----------|------------|----------|
+| **KL-Gate** | Hard gating with static threshold | Simple, efficient | Known optimal threshold |
+| **KL-Gate-Rev** | Reverse logic (skip high agreement) | Filters noise, saves computation | Noisy environments |
+| **KL-Regu** | Soft weighting based on KL | Smooth adaptation, no stagnation | Fine-grained control needed |
+| **KL-Force** | Forced updates after skips | Prevents complete stagnation | Environments prone to stagnation |
+| **KL-Adaptive** | Dynamic threshold adjustment | Self-tuning, data-driven | Unknown optimal threshold |
 
-## Output Format
+### Key Improvements:
+1. **Prevents Learning Stagnation**: All variants address the core issue of static thresholds
+2. **Maintains Efficiency**: Most variants preserve the computational benefits of selective updates
+3. **Data-Driven Adaptation**: KL-Adaptive learns optimal thresholds from data
+4. **Flexible Control**: Multiple parameters allow fine-tuning for different scenarios
 
-```
-[timestamp] KL-Gate CoTTA Results (threshold=0.1):
-Corruption: gaussian_noise5, Error: 12.34%, Updates: 45/50 (90.0%)
-Corruption: shot_noise5, Error: 15.67%, Updates: 38/50 (76.0%)
-...
-============================================================
-KL-Gate CoTTA Results (threshold=0.1):
-Overall Error: 14.23%
-Total Efficiency: 82.5% (825/1000 updates)
-Average Error per Corruption: 14.23%
-============================================================
-```
+### Recommended Usage:
+- **KL-Gate-Rev**: When you want to filter out potentially noisy consistent predictions
+- **KL-Regu**: When you need smooth, continuous adaptation without hard decisions
+- **KL-Force**: When you're concerned about complete learning halt
+- **KL-Adaptive**: When you want automatic threshold optimization
 
-## Configuration
-
-The `kl_gate_cotta.yaml` file contains all configuration parameters:
-
-```yaml
-MODEL:
-  ADAPTATION: kl_gate_cotta
-  ARCH: Standard
-  EPISODIC: False
-TEST:
-  BATCH_SIZE: 200
-CORRUPTION:
-  DATASET: cifar10
-  NUM_EX: 10000
-  SEVERITY: [5]
-  TYPE: [gaussian_noise, shot_noise, ...]
-OPTIM:
-  METHOD: Adam
-  STEPS: 1
-  LR: 1e-3
-  MT: 0.999
-  RST: 0.01
-  AP: 0.92
-KL_GATE:
-  THRESHOLD: 0.1  # Default threshold
-```
-
-## Expected Results
-
-- **Accuracy**: Should be comparable to original CoTTA
-- **Efficiency**: Should show computational savings (efficiency < 100%)
-- **Speed**: Faster execution due to skipped updates
-- **Robustness**: Better handling of untrustworthy teacher predictions
-
-## RunPod Setup
-
-For RunPod deployment:
-
-1. Install dependencies:
-```bash
-pip install torch==1.10.0 torchvision==0.11.1 torchaudio==0.10.0 --index-url https://download.pytorch.org/whl/cu113
-pip install addict==2.4.0 attrs==21.2.0 imagecorruptions==1.1.2 imageio==2.10.1
-pip install numpy==1.19.5 scikit-image==0.18.3 scikit-learn==1.0.1 scipy==1.7.1
-pip install tqdm==4.56.2 yacs==0.1.8
-pip install git+https://github.com/robustbench/robustbench@v0.1#egg=robustbench
-```
-
-2. Test imports:
-```bash
-python test_imports.py
-```
-
-3. Run experiments:
-```bash
-bash run_kl_gate.sh baseline
-bash run_kl_gate.sh kl_gate
-```
-
-## Troubleshooting
-
-- **Import errors**: Run `python test_imports.py` to verify dependencies
-- **CUDA errors**: Ensure CUDA is available and `CUDA_VISIBLE_DEVICES` is set correctly
-- **Memory issues**: Reduce `BATCH_SIZE` in the config file
-- **Slow execution**: This is expected for the first run as models and data are downloaded
+## Acknowledgement 
++ Original CoTTA implementation: [official](https://github.com/qinenergy/cotta)
++ Robustbench for evaluation framework: [official](https://github.com/RobustBench/robustbench)
