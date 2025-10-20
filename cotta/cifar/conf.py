@@ -99,6 +99,11 @@ _C.OPTIM.AP = 0.92
 _C.KL_GATE = CfgNode()
 _C.KL_GATE.THRESHOLD = 0.1
 
+# ------------------------------- KL-Regularization options ----------------- #
+_C.KL_REGU = CfgNode()
+_C.KL_REGU.TAU = 1.0  # Temperature parameter for soft weighting
+_C.KL_REGU.EPS = 1e-8  # Numerical stability parameter
+
 # ------------------------------- Testing options --------------------------- #
 _C.TEST = CfgNode()
 

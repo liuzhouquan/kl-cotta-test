@@ -87,14 +87,14 @@ def evaluate_kl_regu_cotta(description):
     total_errors = []
     total_forward_count = 0
     total_update_count = 0
-    total_avg_kl = 0.0
-    total_avg_weight = 0.0
+    total_kl_sum = 0.0
+    total_weight_sum = 0.0
     
     prev_ct = "x0"
     prev_forward_count = 0
     prev_update_count = 0
-    prev_avg_kl = 0.0
-    prev_avg_weight = 0.0
+    prev_kl_sum = 0.0
+    prev_weight_sum = 0.0
     
     for severity in cfg.CORRUPTION.SEVERITY:
         for i_c, corruption_type in enumerate(cfg.CORRUPTION.TYPE):
@@ -105,8 +105,8 @@ def evaluate_kl_regu_cotta(description):
                     model.reset_stats()  # Reset efficiency stats
                     prev_forward_count = 0
                     prev_update_count = 0
-                    prev_avg_kl = 0.0
-                    prev_avg_weight = 0.0
+                    prev_kl_sum = 0.0
+                    prev_weight_sum = 0.0
                     logger.info("resetting model")
                 except:
                     logger.warning("not resetting model")
@@ -124,39 +124,39 @@ def evaluate_kl_regu_cotta(description):
             err = 1. - acc
             total_errors.append(err)
             
-            # Get efficiency stats for this corruption
-            efficiency, update_count, forward_count, avg_kl, avg_weight = model.get_efficiency_stats()
+            # Get detailed stats for this corruption
+            efficiency, update_count, forward_count, avg_kl, avg_weight, kl_sum, weight_sum = model.get_detailed_stats()
             
             # Calculate incremental stats for this corruption
             incremental_forward = forward_count - prev_forward_count
             incremental_update = update_count - prev_update_count
-            incremental_avg_kl = avg_kl - prev_avg_kl
-            incremental_avg_weight = avg_weight - prev_avg_weight
+            incremental_kl_sum = kl_sum - prev_kl_sum
+            incremental_weight_sum = weight_sum - prev_weight_sum
             
             # Accumulate incremental stats
             total_forward_count += incremental_forward
             total_update_count += incremental_update
-            total_avg_kl += incremental_avg_kl
-            total_avg_weight += incremental_avg_weight
+            total_kl_sum += incremental_kl_sum
+            total_weight_sum += incremental_weight_sum
             
             # Update previous values for next iteration
             prev_forward_count = forward_count
             prev_update_count = update_count
-            prev_avg_kl = avg_kl
-            prev_avg_weight = avg_weight
+            prev_kl_sum = kl_sum
+            prev_weight_sum = weight_sum
             
             # Log results for this corruption
             logger.info(f"Corruption: {corruption_type}{severity}, "
                        f"Error: {err:.2%}, "
                        f"Updates: {incremental_update}/{incremental_forward} ({efficiency:.1%}), "
-                       f"Avg_KL: {incremental_avg_kl:.4f}, "
-                       f"Avg_Weight: {incremental_avg_weight:.4f}")
+                       f"Avg_KL: {avg_kl:.4f}, "
+                       f"Avg_Weight: {avg_weight:.4f}")
     
     # Calculate overall statistics
     overall_error = sum(total_errors) / len(total_errors)
     overall_efficiency = total_update_count / total_forward_count if total_forward_count > 0 else 0.0
-    overall_avg_kl = total_avg_kl / len(total_errors) if len(total_errors) > 0 else 0.0
-    overall_avg_weight = total_avg_weight / len(total_errors) if len(total_errors) > 0 else 0.0
+    overall_avg_kl = total_kl_sum / total_forward_count if total_forward_count > 0 else 0.0
+    overall_avg_weight = total_weight_sum / total_forward_count if total_forward_count > 0 else 0.0
     
     # Log final results
     logger.info("=" * 60)

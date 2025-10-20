@@ -153,6 +153,13 @@ class KLReguCoTTA(nn.Module):
             return 0.0, 0, 0, 0.0, 0.0
         efficiency = self.update_count / self.forward_count
         return efficiency, self.update_count, self.forward_count, self.avg_kl, self.avg_weight
+    
+    def get_detailed_stats(self):
+        """Get detailed statistics including sums."""
+        if self.forward_count == 0:
+            return 0.0, 0, 0, 0.0, 0.0, 0.0, 0.0
+        efficiency = self.update_count / self.forward_count
+        return efficiency, self.update_count, self.forward_count, self.avg_kl, self.avg_weight, self.kl_sum, self.weight_sum
 
     def reset_stats(self):
         """Reset efficiency statistics."""
