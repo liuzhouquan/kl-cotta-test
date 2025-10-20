@@ -1,0 +1,263 @@
+[25/10/20 01:26:24] [conf.py:  224]: PyTorch Version: torch=2.9.0+cu128, cuda=12.8, cudnn=91002
+[25/10/20 01:26:24] [conf.py:  226]: BN:
+  EPS: 1e-05
+  MOM: 0.1
+CKPT_DIR: ./ckpt
+CORRUPTION:
+  DATASET: cifar10
+  NUM_EX: 10000
+  SEVERITY: [5]
+  TYPE: ['gaussian_noise', 'shot_noise', 'impulse_noise', 'defocus_blur', 'glass_blur', 'motion_blur', 'zoom_blur', 'snow', 'frost', 'fog', 'brightness', 'contrast', 'elastic_transform', 'pixelate', 'jpeg_compression']
+CUDNN:
+  BENCHMARK: True
+DATA_DIR: ./data
+DESC: 
+KL_GATE:
+  THRESHOLD: 0.1
+KL_REGU:
+  EPS: 1e-08
+  TAU: 1.0
+LOG_DEST: kl_gate_cotta_rev_251020_012624.txt
+LOG_TIME: 251020_012624
+MODEL:
+  ADAPTATION: kl_gate_cotta_rev
+  ARCH: Standard
+  EPISODIC: False
+OPTIM:
+  AP: 0.92
+  BETA: 0.9
+  DAMPENING: 0.0
+  LR: 0.001
+  METHOD: Adam
+  MOMENTUM: 0.9
+  MT: 0.999
+  NESTEROV: True
+  RST: 0.01
+  STEPS: 1
+  WD: 0.0
+RNG_SEED: 1
+SAVE_DIR: ./output
+TEST:
+  BATCH_SIZE: 400
+[25/10/20 01:26:25] [kl_gate_cotta_rev.py:  162]: model for adaptation: WideResNet(
+  (conv1): Conv2d(3, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (block1): NetworkBlock(
+    (layer): Sequential(
+      (0): BasicBlock(
+        (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(16, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (convShortcut): Conv2d(16, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      )
+      (1): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (2): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (3): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+    )
+  )
+  (block2): NetworkBlock(
+    (layer): Sequential(
+      (0): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 320, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (convShortcut): Conv2d(160, 320, kernel_size=(1, 1), stride=(2, 2), bias=False)
+      )
+      (1): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (2): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (3): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+    )
+  )
+  (block3): NetworkBlock(
+    (layer): Sequential(
+      (0): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 640, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (convShortcut): Conv2d(320, 640, kernel_size=(1, 1), stride=(2, 2), bias=False)
+      )
+      (1): BasicBlock(
+        (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (2): BasicBlock(
+        (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (3): BasicBlock(
+        (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+    )
+  )
+  (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+  (relu): ReLU(inplace=True)
+  (fc): Linear(in_features=640, out_features=10, bias=True)
+)
+[25/10/20 01:26:25] [kl_gate_cotta_rev.py:  163]: params for adaptation: ['conv1.weight', 'block1.layer.0.bn1.weight', 'block1.layer.0.bn1.bias', 'block1.layer.0.conv1.weight', 'block1.layer.0.bn2.weight', 'block1.layer.0.bn2.bias', 'block1.layer.0.conv2.weight', 'block1.layer.0.convShortcut.weight', 'block1.layer.1.bn1.weight', 'block1.layer.1.bn1.bias', 'block1.layer.1.conv1.weight', 'block1.layer.1.bn2.weight', 'block1.layer.1.bn2.bias', 'block1.layer.1.conv2.weight', 'block1.layer.2.bn1.weight', 'block1.layer.2.bn1.bias', 'block1.layer.2.conv1.weight', 'block1.layer.2.bn2.weight', 'block1.layer.2.bn2.bias', 'block1.layer.2.conv2.weight', 'block1.layer.3.bn1.weight', 'block1.layer.3.bn1.bias', 'block1.layer.3.conv1.weight', 'block1.layer.3.bn2.weight', 'block1.layer.3.bn2.bias', 'block1.layer.3.conv2.weight', 'block2.layer.0.bn1.weight', 'block2.layer.0.bn1.bias', 'block2.layer.0.conv1.weight', 'block2.layer.0.bn2.weight', 'block2.layer.0.bn2.bias', 'block2.layer.0.conv2.weight', 'block2.layer.0.convShortcut.weight', 'block2.layer.1.bn1.weight', 'block2.layer.1.bn1.bias', 'block2.layer.1.conv1.weight', 'block2.layer.1.bn2.weight', 'block2.layer.1.bn2.bias', 'block2.layer.1.conv2.weight', 'block2.layer.2.bn1.weight', 'block2.layer.2.bn1.bias', 'block2.layer.2.conv1.weight', 'block2.layer.2.bn2.weight', 'block2.layer.2.bn2.bias', 'block2.layer.2.conv2.weight', 'block2.layer.3.bn1.weight', 'block2.layer.3.bn1.bias', 'block2.layer.3.conv1.weight', 'block2.layer.3.bn2.weight', 'block2.layer.3.bn2.bias', 'block2.layer.3.conv2.weight', 'block3.layer.0.bn1.weight', 'block3.layer.0.bn1.bias', 'block3.layer.0.conv1.weight', 'block3.layer.0.bn2.weight', 'block3.layer.0.bn2.bias', 'block3.layer.0.conv2.weight', 'block3.layer.0.convShortcut.weight', 'block3.layer.1.bn1.weight', 'block3.layer.1.bn1.bias', 'block3.layer.1.conv1.weight', 'block3.layer.1.bn2.weight', 'block3.layer.1.bn2.bias', 'block3.layer.1.conv2.weight', 'block3.layer.2.bn1.weight', 'block3.layer.2.bn1.bias', 'block3.layer.2.conv1.weight', 'block3.layer.2.bn2.weight', 'block3.layer.2.bn2.bias', 'block3.layer.2.conv2.weight', 'block3.layer.3.bn1.weight', 'block3.layer.3.bn1.bias', 'block3.layer.3.conv1.weight', 'block3.layer.3.bn2.weight', 'block3.layer.3.bn2.bias', 'block3.layer.3.conv2.weight', 'bn1.weight', 'bn1.bias', 'fc.weight', 'fc.bias']
+[25/10/20 01:26:25] [kl_gate_cotta_rev.py:  164]: optimizer for adaptation: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    decoupled_weight_decay: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0.0
+)
+[25/10/20 01:26:25] [kl_gate_cotta_rev.py:  165]: KL threshold (rev): 0.2
+[25/10/20 01:26:25] [cifar10c_KL_rev.py:   78]: Running KL-Gate-Rev CoTTA with threshold: 0.2
+[25/10/20 01:26:25] [cifar10c_KL_rev.py:   98]: resetting model
+[25/10/20 01:26:36] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.0000 < threshold=0.2000, skipping update
+[25/10/20 01:26:39] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=-0.0000 < threshold=0.2000, skipping update
+[25/10/20 01:28:23] [cifar10c_KL_rev.py:  131]: Corruption: gaussian_noise5, Error: 24.40%, Updates: 23/25 (92.0%)
+[25/10/20 01:28:23] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:30:19] [cifar10c_KL_rev.py:  131]: Corruption: shot_noise5, Error: 22.86%, Updates: 25/25 (96.0%)
+[25/10/20 01:30:19] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:32:13] [cifar10c_KL_rev.py:  131]: Corruption: impulse_noise5, Error: 26.59%, Updates: 25/25 (97.3%)
+[25/10/20 01:32:13] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:33:17] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1899 < threshold=0.2000, skipping update
+[25/10/20 01:33:39] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1966 < threshold=0.2000, skipping update
+[25/10/20 01:34:06] [cifar10c_KL_rev.py:  131]: Corruption: defocus_blur5, Error: 12.04%, Updates: 23/25 (96.0%)
+[25/10/20 01:34:06] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:35:59] [cifar10c_KL_rev.py:  131]: Corruption: glass_blur5, Error: 28.16%, Updates: 25/25 (96.8%)
+[25/10/20 01:35:59] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:37:54] [cifar10c_KL_rev.py:  131]: Corruption: motion_blur5, Error: 12.80%, Updates: 25/25 (97.3%)
+[25/10/20 01:37:54] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:38:21] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1990 < threshold=0.2000, skipping update
+[25/10/20 01:38:24] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1987 < threshold=0.2000, skipping update
+[25/10/20 01:38:28] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1863 < threshold=0.2000, skipping update
+[25/10/20 01:38:32] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1902 < threshold=0.2000, skipping update
+[25/10/20 01:39:16] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1967 < threshold=0.2000, skipping update
+[25/10/20 01:39:34] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1949 < threshold=0.2000, skipping update
+[25/10/20 01:39:42] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1983 < threshold=0.2000, skipping update
+[25/10/20 01:39:42] [cifar10c_KL_rev.py:  131]: Corruption: zoom_blur5, Error: 10.76%, Updates: 18/25 (93.7%)
+[25/10/20 01:39:42] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:41:33] [cifar10c_KL_rev.py:  131]: Corruption: snow5, Error: 15.88%, Updates: 25/25 (94.5%)
+[25/10/20 01:41:33] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:43:29] [cifar10c_KL_rev.py:  131]: Corruption: frost5, Error: 15.17%, Updates: 25/25 (95.1%)
+[25/10/20 01:43:29] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:44:50] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1896 < threshold=0.2000, skipping update
+[25/10/20 01:44:58] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1909 < threshold=0.2000, skipping update
+[25/10/20 01:45:22] [cifar10c_KL_rev.py:  131]: Corruption: fog5, Error: 13.53%, Updates: 23/25 (94.8%)
+[25/10/20 01:45:22] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:45:25] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1212 < threshold=0.2000, skipping update
+[25/10/20 01:45:29] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1264 < threshold=0.2000, skipping update
+[25/10/20 01:45:32] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1463 < threshold=0.2000, skipping update
+[25/10/20 01:45:36] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1258 < threshold=0.2000, skipping update
+[25/10/20 01:45:40] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1502 < threshold=0.2000, skipping update
+[25/10/20 01:45:43] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1318 < threshold=0.2000, skipping update
+[25/10/20 01:45:47] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1498 < threshold=0.2000, skipping update
+[25/10/20 01:45:51] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1608 < threshold=0.2000, skipping update
+[25/10/20 01:45:54] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1841 < threshold=0.2000, skipping update
+[25/10/20 01:45:58] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1230 < threshold=0.2000, skipping update
+[25/10/20 01:46:01] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1055 < threshold=0.2000, skipping update
+[25/10/20 01:46:05] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1458 < threshold=0.2000, skipping update
+[25/10/20 01:46:09] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1332 < threshold=0.2000, skipping update
+[25/10/20 01:46:12] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1565 < threshold=0.2000, skipping update
+[25/10/20 01:46:16] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1849 < threshold=0.2000, skipping update
+[25/10/20 01:46:20] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1170 < threshold=0.2000, skipping update
+[25/10/20 01:46:23] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1707 < threshold=0.2000, skipping update
+[25/10/20 01:46:27] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1420 < threshold=0.2000, skipping update
+[25/10/20 01:46:30] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1141 < threshold=0.2000, skipping update
+[25/10/20 01:46:34] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1427 < threshold=0.2000, skipping update
+[25/10/20 01:46:38] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1450 < threshold=0.2000, skipping update
+[25/10/20 01:46:41] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1694 < threshold=0.2000, skipping update
+[25/10/20 01:46:45] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1092 < threshold=0.2000, skipping update
+[25/10/20 01:46:49] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1414 < threshold=0.2000, skipping update
+[25/10/20 01:46:52] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1115 < threshold=0.2000, skipping update
+[25/10/20 01:46:52] [cifar10c_KL_rev.py:  131]: Corruption: brightness5, Error: 7.69%, Updates: 0/25 (86.2%)
+[25/10/20 01:46:52] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:46:56] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1893 < threshold=0.2000, skipping update
+[25/10/20 01:47:00] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1851 < threshold=0.2000, skipping update
+[25/10/20 01:47:03] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1772 < threshold=0.2000, skipping update
+[25/10/20 01:47:16] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1905 < threshold=0.2000, skipping update
+[25/10/20 01:47:24] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1632 < threshold=0.2000, skipping update
+[25/10/20 01:47:32] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1846 < threshold=0.2000, skipping update
+[25/10/20 01:47:35] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1664 < threshold=0.2000, skipping update
+[25/10/20 01:47:57] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1819 < threshold=0.2000, skipping update
+[25/10/20 01:48:15] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1609 < threshold=0.2000, skipping update
+[25/10/20 01:48:32] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1430 < threshold=0.2000, skipping update
+[25/10/20 01:48:36] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1745 < threshold=0.2000, skipping update
+[25/10/20 01:48:36] [cifar10c_KL_rev.py:  131]: Corruption: contrast5, Error: 11.53%, Updates: 14/25 (83.7%)
+[25/10/20 01:48:36] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:50:31] [cifar10c_KL_rev.py:  131]: Corruption: elastic_transform5, Error: 19.93%, Updates: 25/25 (84.9%)
+[25/10/20 01:50:31] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:51:17] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1820 < threshold=0.2000, skipping update
+[25/10/20 01:51:30] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1965 < threshold=0.2000, skipping update
+[25/10/20 01:52:26] [cifar10c_KL_rev.py:  131]: Corruption: pixelate5, Error: 15.58%, Updates: 23/25 (85.4%)
+[25/10/20 01:52:26] [cifar10c_KL_rev.py:  102]: not resetting model
+[25/10/20 01:54:18] [kl_gate_cotta_rev.py:  103]: KL-Gate-Rev triggered: KL=0.1981 < threshold=0.2000, skipping update
+[25/10/20 01:54:22] [cifar10c_KL_rev.py:  131]: Corruption: jpeg_compression5, Error: 19.60%, Updates: 24/25 (86.1%)
+[25/10/20 01:54:22] [cifar10c_KL_rev.py:  140]: ============================================================
+[25/10/20 01:54:22] [cifar10c_KL_rev.py:  144]: KL-Gate-Rev CoTTA Results (threshold=0.2):
+[25/10/20 01:54:22] [cifar10c_KL_rev.py:  145]: Overall Error: 17.10%
+[25/10/20 01:54:22] [cifar10c_KL_rev.py:  146]: Total Efficiency: 86.1% (323/375 updates)
+[25/10/20 01:54:22] [cifar10c_KL_rev.py:  147]: Average Error per Corruption: 17.10%
+[25/10/20 01:54:22] [cifar10c_KL_rev.py:  148]: ============================================================

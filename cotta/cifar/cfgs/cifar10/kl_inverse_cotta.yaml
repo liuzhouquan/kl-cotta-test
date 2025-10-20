@@ -1,0 +1,41 @@
+MODEL:
+  ADAPTATION: kl_inverse_cotta
+  ARCH: Standard
+  EPISODIC: False
+TEST:
+  BATCH_SIZE: 400
+CORRUPTION:
+  DATASET: cifar10
+  NUM_EX: 10000
+  SEVERITY:
+    - 5
+  TYPE:
+    - gaussian_noise
+    - shot_noise
+    - impulse_noise
+    - defocus_blur
+    - glass_blur
+    - motion_blur
+    - zoom_blur
+    - snow
+    - frost
+    - fog
+    - brightness
+    - contrast
+    - elastic_transform
+    - pixelate
+    - jpeg_compression
+OPTIM:
+  METHOD: Adam
+  STEPS: 1
+  BETA: 0.9
+  LR: 1e-3
+  WD: 0.
+  MT: 0.999
+  RST: 0.01
+  AP: 0.92
+# KL Inverse specific parameters
+KL_INVERSE:
+  TAU: 1.0  # Temperature parameter for inverse weighting (higher = smoother weighting)
+  EPS: 1e-8  # Numerical stability parameter
+  STRATEGY: exp  # Weighting strategy: exp, reciprocal, or linear

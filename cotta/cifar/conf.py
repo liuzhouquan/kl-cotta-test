@@ -104,6 +104,12 @@ _C.KL_REGU = CfgNode()
 _C.KL_REGU.TAU = 1.0  # Temperature parameter for soft weighting
 _C.KL_REGU.EPS = 1e-8  # Numerical stability parameter
 
+# ------------------------------- KL-Inverse options ------------------------ #
+_C.KL_INVERSE = CfgNode()
+_C.KL_INVERSE.TAU = 1.0  # Temperature parameter for inverse weighting
+_C.KL_INVERSE.EPS = 1e-8  # Numerical stability parameter
+_C.KL_INVERSE.STRATEGY = 'exp'  # Weighting strategy: exp, reciprocal, linear
+
 # ------------------------------- Testing options --------------------------- #
 _C.TEST = CfgNode()
 

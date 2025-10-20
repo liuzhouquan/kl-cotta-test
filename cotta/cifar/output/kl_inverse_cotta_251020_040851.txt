@@ -1,0 +1,594 @@
+[25/10/20 04:08:51] [conf.py:  230]: PyTorch Version: torch=2.9.0+cu128, cuda=12.8, cudnn=91002
+[25/10/20 04:08:51] [conf.py:  232]: BN:
+  EPS: 1e-05
+  MOM: 0.1
+CKPT_DIR: ./ckpt
+CORRUPTION:
+  DATASET: cifar10
+  NUM_EX: 10000
+  SEVERITY: [5]
+  TYPE: ['gaussian_noise', 'shot_noise', 'impulse_noise', 'defocus_blur', 'glass_blur', 'motion_blur', 'zoom_blur', 'snow', 'frost', 'fog', 'brightness', 'contrast', 'elastic_transform', 'pixelate', 'jpeg_compression']
+CUDNN:
+  BENCHMARK: True
+DATA_DIR: ./data
+DESC: 
+KL_GATE:
+  THRESHOLD: 0.1
+KL_INVERSE:
+  EPS: 1e-08
+  STRATEGY: exp
+  TAU: 1.0
+KL_REGU:
+  EPS: 1e-08
+  TAU: 1.0
+LOG_DEST: kl_inverse_cotta_251020_040851.txt
+LOG_TIME: 251020_040851
+MODEL:
+  ADAPTATION: kl_inverse_cotta
+  ARCH: Standard
+  EPISODIC: False
+OPTIM:
+  AP: 0.92
+  BETA: 0.9
+  DAMPENING: 0.0
+  LR: 0.001
+  METHOD: Adam
+  MOMENTUM: 0.9
+  MT: 0.999
+  NESTEROV: True
+  RST: 0.01
+  STEPS: 1
+  WD: 0.0
+RNG_SEED: 1
+SAVE_DIR: ./output
+TEST:
+  BATCH_SIZE: 400
+[25/10/20 04:08:52] [kl_inverse_cotta.py:  213]: model for adaptation: WideResNet(
+  (conv1): Conv2d(3, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (block1): NetworkBlock(
+    (layer): Sequential(
+      (0): BasicBlock(
+        (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(16, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (convShortcut): Conv2d(16, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      )
+      (1): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (2): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (3): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+    )
+  )
+  (block2): NetworkBlock(
+    (layer): Sequential(
+      (0): BasicBlock(
+        (bn1): BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(160, 320, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (convShortcut): Conv2d(160, 320, kernel_size=(1, 1), stride=(2, 2), bias=False)
+      )
+      (1): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (2): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (3): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(320, 320, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+    )
+  )
+  (block3): NetworkBlock(
+    (layer): Sequential(
+      (0): BasicBlock(
+        (bn1): BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(320, 640, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (convShortcut): Conv2d(320, 640, kernel_size=(1, 1), stride=(2, 2), bias=False)
+      )
+      (1): BasicBlock(
+        (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (2): BasicBlock(
+        (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (3): BasicBlock(
+        (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu1): ReLU(inplace=True)
+        (conv1): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+        (relu2): ReLU(inplace=True)
+        (conv2): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+    )
+  )
+  (bn1): BatchNorm2d(640, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+  (relu): ReLU(inplace=True)
+  (fc): Linear(in_features=640, out_features=10, bias=True)
+)
+[25/10/20 04:08:52] [kl_inverse_cotta.py:  214]: params for adaptation: ['conv1.weight', 'block1.layer.0.bn1.weight', 'block1.layer.0.bn1.bias', 'block1.layer.0.conv1.weight', 'block1.layer.0.bn2.weight', 'block1.layer.0.bn2.bias', 'block1.layer.0.conv2.weight', 'block1.layer.0.convShortcut.weight', 'block1.layer.1.bn1.weight', 'block1.layer.1.bn1.bias', 'block1.layer.1.conv1.weight', 'block1.layer.1.bn2.weight', 'block1.layer.1.bn2.bias', 'block1.layer.1.conv2.weight', 'block1.layer.2.bn1.weight', 'block1.layer.2.bn1.bias', 'block1.layer.2.conv1.weight', 'block1.layer.2.bn2.weight', 'block1.layer.2.bn2.bias', 'block1.layer.2.conv2.weight', 'block1.layer.3.bn1.weight', 'block1.layer.3.bn1.bias', 'block1.layer.3.conv1.weight', 'block1.layer.3.bn2.weight', 'block1.layer.3.bn2.bias', 'block1.layer.3.conv2.weight', 'block2.layer.0.bn1.weight', 'block2.layer.0.bn1.bias', 'block2.layer.0.conv1.weight', 'block2.layer.0.bn2.weight', 'block2.layer.0.bn2.bias', 'block2.layer.0.conv2.weight', 'block2.layer.0.convShortcut.weight', 'block2.layer.1.bn1.weight', 'block2.layer.1.bn1.bias', 'block2.layer.1.conv1.weight', 'block2.layer.1.bn2.weight', 'block2.layer.1.bn2.bias', 'block2.layer.1.conv2.weight', 'block2.layer.2.bn1.weight', 'block2.layer.2.bn1.bias', 'block2.layer.2.conv1.weight', 'block2.layer.2.bn2.weight', 'block2.layer.2.bn2.bias', 'block2.layer.2.conv2.weight', 'block2.layer.3.bn1.weight', 'block2.layer.3.bn1.bias', 'block2.layer.3.conv1.weight', 'block2.layer.3.bn2.weight', 'block2.layer.3.bn2.bias', 'block2.layer.3.conv2.weight', 'block3.layer.0.bn1.weight', 'block3.layer.0.bn1.bias', 'block3.layer.0.conv1.weight', 'block3.layer.0.bn2.weight', 'block3.layer.0.bn2.bias', 'block3.layer.0.conv2.weight', 'block3.layer.0.convShortcut.weight', 'block3.layer.1.bn1.weight', 'block3.layer.1.bn1.bias', 'block3.layer.1.conv1.weight', 'block3.layer.1.bn2.weight', 'block3.layer.1.bn2.bias', 'block3.layer.1.conv2.weight', 'block3.layer.2.bn1.weight', 'block3.layer.2.bn1.bias', 'block3.layer.2.conv1.weight', 'block3.layer.2.bn2.weight', 'block3.layer.2.bn2.bias', 'block3.layer.2.conv2.weight', 'block3.layer.3.bn1.weight', 'block3.layer.3.bn1.bias', 'block3.layer.3.conv1.weight', 'block3.layer.3.bn2.weight', 'block3.layer.3.bn2.bias', 'block3.layer.3.conv2.weight', 'bn1.weight', 'bn1.bias', 'fc.weight', 'fc.bias']
+[25/10/20 04:08:52] [kl_inverse_cotta.py:  215]: optimizer for adaptation: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    decoupled_weight_decay: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0.0
+)
+[25/10/20 04:08:52] [kl_inverse_cotta.py:  216]: KL inverse tau: 15.0
+[25/10/20 04:08:52] [kl_inverse_cotta.py:  217]: KL inverse eps: 1e-08
+[25/10/20 04:08:52] [kl_inverse_cotta.py:  218]: KL inverse strategy: exp
+[25/10/20 04:08:52] [cifar10c_KL_inverse.py:   91]: Running KL-Inverse CoTTA with tau=15.0, eps=1e-08, strategy=exp
+[25/10/20 04:08:52] [cifar10c_KL_inverse.py:  117]: resetting model
+[25/10/20 04:09:02] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.0000, avg_weight=1.0000, weighted_loss=0.2129, strategy=exp
+[25/10/20 04:09:08] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.0011, avg_weight=1.0001, weighted_loss=0.2095, strategy=exp
+[25/10/20 04:09:13] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=3.0313, avg_weight=1.2622, weighted_loss=4.3630, strategy=exp
+[25/10/20 04:09:17] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=1.4032, avg_weight=1.1077, weighted_loss=2.0525, strategy=exp
+[25/10/20 04:09:22] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=1.0529, avg_weight=1.0778, weighted_loss=1.5405, strategy=exp
+[25/10/20 04:09:26] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.9533, avg_weight=1.0699, weighted_loss=1.4517, strategy=exp
+[25/10/20 04:09:31] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=1.0435, avg_weight=1.0755, weighted_loss=1.3580, strategy=exp
+[25/10/20 04:09:36] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.8404, avg_weight=1.0593, weighted_loss=1.2481, strategy=exp
+[25/10/20 04:09:40] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.9139, avg_weight=1.0647, weighted_loss=1.3314, strategy=exp
+[25/10/20 04:09:45] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.7759, avg_weight=1.0544, weighted_loss=1.1686, strategy=exp
+[25/10/20 04:09:50] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.9121, avg_weight=1.0645, weighted_loss=1.1767, strategy=exp
+[25/10/20 04:09:54] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.7031, avg_weight=1.0488, weighted_loss=1.1201, strategy=exp
+[25/10/20 04:09:59] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.7083, avg_weight=1.0496, weighted_loss=1.0510, strategy=exp
+[25/10/20 04:10:03] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.6396, avg_weight=1.0447, weighted_loss=1.0262, strategy=exp
+[25/10/20 04:10:07] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.6914, avg_weight=1.0489, weighted_loss=1.1082, strategy=exp
+[25/10/20 04:10:11] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.6539, avg_weight=1.0456, weighted_loss=1.0245, strategy=exp
+[25/10/20 04:10:16] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5918, avg_weight=1.0413, weighted_loss=0.9613, strategy=exp
+[25/10/20 04:10:21] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.6136, avg_weight=1.0433, weighted_loss=1.0102, strategy=exp
+[25/10/20 04:10:25] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5592, avg_weight=1.0388, weighted_loss=0.9121, strategy=exp
+[25/10/20 04:10:30] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5744, avg_weight=1.0400, weighted_loss=0.9431, strategy=exp
+[25/10/20 04:10:34] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5558, avg_weight=1.0386, weighted_loss=0.9320, strategy=exp
+[25/10/20 04:10:39] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5470, avg_weight=1.0380, weighted_loss=0.9096, strategy=exp
+[25/10/20 04:10:43] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5205, avg_weight=1.0364, weighted_loss=0.8935, strategy=exp
+[25/10/20 04:10:48] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.8069, avg_weight=1.0575, weighted_loss=1.0907, strategy=exp
+[25/10/20 04:10:52] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.7465, avg_weight=1.0528, weighted_loss=0.9978, strategy=exp
+[25/10/20 04:10:53] [cifar10c_KL_inverse.py:  156]: Corruption: gaussian_noise5, Error: 24.06%, Updates: 25/25 (100.0%), Avg_KL: 317.4326, Avg_Weight: 423.3695
+[25/10/20 04:10:53] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:10:57] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.7490, avg_weight=1.0533, weighted_loss=1.0206, strategy=exp
+[25/10/20 04:11:01] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.6448, avg_weight=1.0454, weighted_loss=0.9017, strategy=exp
+[25/10/20 04:11:06] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.6602, avg_weight=1.0466, weighted_loss=0.9196, strategy=exp
+[25/10/20 04:11:11] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4824, avg_weight=1.0334, weighted_loss=0.8106, strategy=exp
+[25/10/20 04:11:15] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5996, avg_weight=1.0422, weighted_loss=0.8508, strategy=exp
+[25/10/20 04:11:20] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5798, avg_weight=1.0407, weighted_loss=0.8103, strategy=exp
+[25/10/20 04:11:24] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4362, avg_weight=1.0301, weighted_loss=0.7633, strategy=exp
+[25/10/20 04:11:29] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5958, avg_weight=1.0418, weighted_loss=0.8488, strategy=exp
+[25/10/20 04:11:34] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.6018, avg_weight=1.0424, weighted_loss=0.8535, strategy=exp
+[25/10/20 04:11:38] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5181, avg_weight=1.0363, weighted_loss=0.7492, strategy=exp
+[25/10/20 04:11:43] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4951, avg_weight=1.0345, weighted_loss=0.7300, strategy=exp
+[25/10/20 04:11:47] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4074, avg_weight=1.0282, weighted_loss=0.7523, strategy=exp
+[25/10/20 04:11:52] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3760, avg_weight=1.0260, weighted_loss=0.6948, strategy=exp
+[25/10/20 04:11:57] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3768, avg_weight=1.0259, weighted_loss=0.7353, strategy=exp
+[25/10/20 04:12:01] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3537, avg_weight=1.0243, weighted_loss=0.6766, strategy=exp
+[25/10/20 04:12:05] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4856, avg_weight=1.0342, weighted_loss=0.7175, strategy=exp
+[25/10/20 04:12:10] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5033, avg_weight=1.0354, weighted_loss=0.7479, strategy=exp
+[25/10/20 04:12:14] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5198, avg_weight=1.0367, weighted_loss=0.7843, strategy=exp
+[25/10/20 04:12:19] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5553, avg_weight=1.0395, weighted_loss=0.8169, strategy=exp
+[25/10/20 04:12:24] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3025, avg_weight=1.0209, weighted_loss=0.6260, strategy=exp
+[25/10/20 04:12:28] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3357, avg_weight=1.0231, weighted_loss=0.6694, strategy=exp
+[25/10/20 04:12:32] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4988, avg_weight=1.0352, weighted_loss=0.7669, strategy=exp
+[25/10/20 04:12:37] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4999, avg_weight=1.0352, weighted_loss=0.7587, strategy=exp
+[25/10/20 04:12:42] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3241, avg_weight=1.0223, weighted_loss=0.6505, strategy=exp
+[25/10/20 04:12:46] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4139, avg_weight=1.0289, weighted_loss=0.6522, strategy=exp
+[25/10/20 04:12:47] [cifar10c_KL_inverse.py:  156]: Corruption: shot_noise5, Error: 23.03%, Updates: 25/25 (100.0%), Avg_KL: 257.2420, Avg_Weight: 418.5845
+[25/10/20 04:12:47] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:12:51] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4534, avg_weight=1.0316, weighted_loss=0.9432, strategy=exp
+[25/10/20 04:12:56] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4518, avg_weight=1.0314, weighted_loss=0.9129, strategy=exp
+[25/10/20 04:13:00] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3894, avg_weight=1.0270, weighted_loss=0.7986, strategy=exp
+[25/10/20 04:13:05] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3957, avg_weight=1.0273, weighted_loss=0.8559, strategy=exp
+[25/10/20 04:13:09] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3592, avg_weight=1.0247, weighted_loss=0.7887, strategy=exp
+[25/10/20 04:13:14] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3584, avg_weight=1.0248, weighted_loss=0.7595, strategy=exp
+[25/10/20 04:13:18] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3738, avg_weight=1.0257, weighted_loss=0.8308, strategy=exp
+[25/10/20 04:13:23] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3398, avg_weight=1.0234, weighted_loss=0.7420, strategy=exp
+[25/10/20 04:13:27] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3432, avg_weight=1.0235, weighted_loss=0.7478, strategy=exp
+[25/10/20 04:13:31] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4056, avg_weight=1.0280, weighted_loss=0.8530, strategy=exp
+[25/10/20 04:13:35] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3050, avg_weight=1.0209, weighted_loss=0.6972, strategy=exp
+[25/10/20 04:13:39] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3878, avg_weight=1.0268, weighted_loss=0.8295, strategy=exp
+[25/10/20 04:13:44] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3528, avg_weight=1.0243, weighted_loss=0.7837, strategy=exp
+[25/10/20 04:13:48] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3238, avg_weight=1.0222, weighted_loss=0.7924, strategy=exp
+[25/10/20 04:13:53] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3677, avg_weight=1.0254, weighted_loss=0.8263, strategy=exp
+[25/10/20 04:13:57] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3629, avg_weight=1.0250, weighted_loss=0.8120, strategy=exp
+[25/10/20 04:14:02] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3399, avg_weight=1.0233, weighted_loss=0.7797, strategy=exp
+[25/10/20 04:14:06] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3038, avg_weight=1.0208, weighted_loss=0.7677, strategy=exp
+[25/10/20 04:14:11] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3482, avg_weight=1.0239, weighted_loss=0.7622, strategy=exp
+[25/10/20 04:14:15] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3563, avg_weight=1.0247, weighted_loss=0.7497, strategy=exp
+[25/10/20 04:14:20] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3153, avg_weight=1.0216, weighted_loss=0.7373, strategy=exp
+[25/10/20 04:14:25] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3313, avg_weight=1.0227, weighted_loss=0.7649, strategy=exp
+[25/10/20 04:14:29] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3387, avg_weight=1.0233, weighted_loss=0.7609, strategy=exp
+[25/10/20 04:14:34] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3106, avg_weight=1.0214, weighted_loss=0.7404, strategy=exp
+[25/10/20 04:14:38] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3011, avg_weight=1.0207, weighted_loss=0.6816, strategy=exp
+[25/10/20 04:14:39] [cifar10c_KL_inverse.py:  156]: Corruption: impulse_noise5, Error: 26.86%, Updates: 25/25 (100.0%), Avg_KL: 219.0435, Avg_Weight: 415.6671
+[25/10/20 04:14:39] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:14:43] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3427, avg_weight=1.0238, weighted_loss=0.4795, strategy=exp
+[25/10/20 04:14:48] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3053, avg_weight=1.0212, weighted_loss=0.4400, strategy=exp
+[25/10/20 04:14:52] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2921, avg_weight=1.0203, weighted_loss=0.4370, strategy=exp
+[25/10/20 04:14:57] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2515, avg_weight=1.0173, weighted_loss=0.3887, strategy=exp
+[25/10/20 04:15:02] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2339, avg_weight=1.0161, weighted_loss=0.3854, strategy=exp
+[25/10/20 04:15:06] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2351, avg_weight=1.0162, weighted_loss=0.3875, strategy=exp
+[25/10/20 04:15:11] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2581, avg_weight=1.0179, weighted_loss=0.3862, strategy=exp
+[25/10/20 04:15:15] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2502, avg_weight=1.0174, weighted_loss=0.3879, strategy=exp
+[25/10/20 04:15:20] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2498, avg_weight=1.0175, weighted_loss=0.4188, strategy=exp
+[25/10/20 04:15:25] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2290, avg_weight=1.0160, weighted_loss=0.3782, strategy=exp
+[25/10/20 04:15:29] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2302, avg_weight=1.0161, weighted_loss=0.3852, strategy=exp
+[25/10/20 04:15:34] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2588, avg_weight=1.0181, weighted_loss=0.4520, strategy=exp
+[25/10/20 04:15:38] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2126, avg_weight=1.0148, weighted_loss=0.3554, strategy=exp
+[25/10/20 04:15:43] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2068, avg_weight=1.0143, weighted_loss=0.3543, strategy=exp
+[25/10/20 04:15:47] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2225, avg_weight=1.0155, weighted_loss=0.3610, strategy=exp
+[25/10/20 04:15:51] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2355, avg_weight=1.0163, weighted_loss=0.4057, strategy=exp
+[25/10/20 04:15:55] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2524, avg_weight=1.0177, weighted_loss=0.4216, strategy=exp
+[25/10/20 04:16:00] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2583, avg_weight=1.0182, weighted_loss=0.4147, strategy=exp
+[25/10/20 04:16:04] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2155, avg_weight=1.0149, weighted_loss=0.3443, strategy=exp
+[25/10/20 04:16:08] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3231, avg_weight=1.0232, weighted_loss=0.5060, strategy=exp
+[25/10/20 04:16:13] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2690, avg_weight=1.0188, weighted_loss=0.4117, strategy=exp
+[25/10/20 04:16:17] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2330, avg_weight=1.0162, weighted_loss=0.3986, strategy=exp
+[25/10/20 04:16:22] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2723, avg_weight=1.0191, weighted_loss=0.4288, strategy=exp
+[25/10/20 04:16:27] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3081, avg_weight=1.0217, weighted_loss=0.4887, strategy=exp
+[25/10/20 04:16:31] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2761, avg_weight=1.0192, weighted_loss=0.4292, strategy=exp
+[25/10/20 04:16:32] [cifar10c_KL_inverse.py:  156]: Corruption: defocus_blur5, Error: 11.98%, Updates: 25/25 (100.0%), Avg_KL: 189.9706, Avg_Weight: 413.5403
+[25/10/20 04:16:32] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:16:36] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.5576, avg_weight=1.0393, weighted_loss=1.0377, strategy=exp
+[25/10/20 04:16:41] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4396, avg_weight=1.0306, weighted_loss=0.8329, strategy=exp
+[25/10/20 04:16:45] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4236, avg_weight=1.0295, weighted_loss=0.8496, strategy=exp
+[25/10/20 04:16:50] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4172, avg_weight=1.0290, weighted_loss=0.8490, strategy=exp
+[25/10/20 04:16:54] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4268, avg_weight=1.0298, weighted_loss=0.8915, strategy=exp
+[25/10/20 04:16:59] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3999, avg_weight=1.0277, weighted_loss=0.8042, strategy=exp
+[25/10/20 04:17:03] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3943, avg_weight=1.0272, weighted_loss=0.8431, strategy=exp
+[25/10/20 04:17:08] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3950, avg_weight=1.0273, weighted_loss=0.7849, strategy=exp
+[25/10/20 04:17:13] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4397, avg_weight=1.0304, weighted_loss=0.8844, strategy=exp
+[25/10/20 04:17:17] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4065, avg_weight=1.0280, weighted_loss=0.8500, strategy=exp
+[25/10/20 04:17:22] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4000, avg_weight=1.0275, weighted_loss=0.7669, strategy=exp
+[25/10/20 04:17:27] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.4618, avg_weight=1.0319, weighted_loss=0.8844, strategy=exp
+[25/10/20 04:17:31] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3842, avg_weight=1.0264, weighted_loss=0.7712, strategy=exp
+[25/10/20 04:17:36] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3487, avg_weight=1.0239, weighted_loss=0.7647, strategy=exp
+[25/10/20 04:17:40] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3731, avg_weight=1.0257, weighted_loss=0.7989, strategy=exp
+[25/10/20 04:17:45] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3359, avg_weight=1.0232, weighted_loss=0.7411, strategy=exp
+[25/10/20 04:17:49] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3966, avg_weight=1.0276, weighted_loss=0.8623, strategy=exp
+[25/10/20 04:17:53] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3304, avg_weight=1.0227, weighted_loss=0.7327, strategy=exp
+[25/10/20 04:17:58] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3360, avg_weight=1.0231, weighted_loss=0.7644, strategy=exp
+[25/10/20 04:18:03] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3394, avg_weight=1.0234, weighted_loss=0.7599, strategy=exp
+[25/10/20 04:18:07] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3398, avg_weight=1.0234, weighted_loss=0.7885, strategy=exp
+[25/10/20 04:18:12] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3282, avg_weight=1.0227, weighted_loss=0.7380, strategy=exp
+[25/10/20 04:18:16] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3019, avg_weight=1.0207, weighted_loss=0.7312, strategy=exp
+[25/10/20 04:18:21] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3511, avg_weight=1.0243, weighted_loss=0.7866, strategy=exp
+[25/10/20 04:18:25] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3567, avg_weight=1.0246, weighted_loss=0.7895, strategy=exp
+[25/10/20 04:18:26] [cifar10c_KL_inverse.py:  156]: Corruption: glass_blur5, Error: 28.62%, Updates: 25/25 (100.0%), Avg_KL: 182.9650, Avg_Weight: 412.9759
+[25/10/20 04:18:26] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:18:30] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3154, avg_weight=1.0219, weighted_loss=0.4876, strategy=exp
+[25/10/20 04:18:35] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2893, avg_weight=1.0200, weighted_loss=0.4452, strategy=exp
+[25/10/20 04:18:39] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2925, avg_weight=1.0202, weighted_loss=0.4653, strategy=exp
+[25/10/20 04:18:44] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3170, avg_weight=1.0224, weighted_loss=0.4973, strategy=exp
+[25/10/20 04:18:48] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2855, avg_weight=1.0199, weighted_loss=0.4481, strategy=exp
+[25/10/20 04:18:53] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2370, avg_weight=1.0164, weighted_loss=0.3837, strategy=exp
+[25/10/20 04:18:58] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2869, avg_weight=1.0199, weighted_loss=0.4548, strategy=exp
+[25/10/20 04:19:02] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2481, avg_weight=1.0173, weighted_loss=0.3989, strategy=exp
+[25/10/20 04:19:07] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2518, avg_weight=1.0175, weighted_loss=0.4151, strategy=exp
+[25/10/20 04:19:12] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2198, avg_weight=1.0152, weighted_loss=0.3807, strategy=exp
+[25/10/20 04:19:16] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2049, avg_weight=1.0142, weighted_loss=0.3563, strategy=exp
+[25/10/20 04:19:20] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2338, avg_weight=1.0162, weighted_loss=0.4001, strategy=exp
+[25/10/20 04:19:24] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2438, avg_weight=1.0169, weighted_loss=0.4230, strategy=exp
+[25/10/20 04:19:29] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1794, avg_weight=1.0124, weighted_loss=0.3340, strategy=exp
+[25/10/20 04:19:33] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2272, avg_weight=1.0158, weighted_loss=0.4178, strategy=exp
+[25/10/20 04:19:37] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2372, avg_weight=1.0166, weighted_loss=0.4062, strategy=exp
+[25/10/20 04:19:42] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2603, avg_weight=1.0182, weighted_loss=0.4435, strategy=exp
+[25/10/20 04:19:47] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2652, avg_weight=1.0189, weighted_loss=0.4624, strategy=exp
+[25/10/20 04:19:51] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2104, avg_weight=1.0146, weighted_loss=0.3428, strategy=exp
+[25/10/20 04:19:56] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2473, avg_weight=1.0171, weighted_loss=0.4157, strategy=exp
+[25/10/20 04:20:00] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2630, avg_weight=1.0184, weighted_loss=0.4479, strategy=exp
+[25/10/20 04:20:05] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2896, avg_weight=1.0203, weighted_loss=0.4713, strategy=exp
+[25/10/20 04:20:10] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2453, avg_weight=1.0171, weighted_loss=0.4085, strategy=exp
+[25/10/20 04:20:14] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2621, avg_weight=1.0182, weighted_loss=0.4561, strategy=exp
+[25/10/20 04:20:19] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2871, avg_weight=1.0202, weighted_loss=0.4666, strategy=exp
+[25/10/20 04:20:20] [cifar10c_KL_inverse.py:  156]: Corruption: motion_blur5, Error: 12.84%, Updates: 25/25 (100.0%), Avg_KL: 169.5376, Avg_Weight: 412.0015
+[25/10/20 04:20:20] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:20:24] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3273, avg_weight=1.0231, weighted_loss=0.5242, strategy=exp
+[25/10/20 04:20:28] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2178, avg_weight=1.0151, weighted_loss=0.3590, strategy=exp
+[25/10/20 04:20:33] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2284, avg_weight=1.0159, weighted_loss=0.3735, strategy=exp
+[25/10/20 04:20:38] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2580, avg_weight=1.0179, weighted_loss=0.4207, strategy=exp
+[25/10/20 04:20:42] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2434, avg_weight=1.0170, weighted_loss=0.4030, strategy=exp
+[25/10/20 04:20:47] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2453, avg_weight=1.0171, weighted_loss=0.4039, strategy=exp
+[25/10/20 04:20:52] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2118, avg_weight=1.0146, weighted_loss=0.3575, strategy=exp
+[25/10/20 04:20:56] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2097, avg_weight=1.0145, weighted_loss=0.3885, strategy=exp
+[25/10/20 04:21:01] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2355, avg_weight=1.0164, weighted_loss=0.4006, strategy=exp
+[25/10/20 04:21:06] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2309, avg_weight=1.0161, weighted_loss=0.3732, strategy=exp
+[25/10/20 04:21:10] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2144, avg_weight=1.0150, weighted_loss=0.3556, strategy=exp
+[25/10/20 04:21:14] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2199, avg_weight=1.0153, weighted_loss=0.3854, strategy=exp
+[25/10/20 04:21:19] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2319, avg_weight=1.0160, weighted_loss=0.3934, strategy=exp
+[25/10/20 04:21:23] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2548, avg_weight=1.0179, weighted_loss=0.4207, strategy=exp
+[25/10/20 04:21:28] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2355, avg_weight=1.0166, weighted_loss=0.3992, strategy=exp
+[25/10/20 04:21:32] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1993, avg_weight=1.0139, weighted_loss=0.3693, strategy=exp
+[25/10/20 04:21:37] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2527, avg_weight=1.0177, weighted_loss=0.4269, strategy=exp
+[25/10/20 04:21:42] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2422, avg_weight=1.0168, weighted_loss=0.3980, strategy=exp
+[25/10/20 04:21:46] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2127, avg_weight=1.0148, weighted_loss=0.3485, strategy=exp
+[25/10/20 04:21:51] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2434, avg_weight=1.0170, weighted_loss=0.4054, strategy=exp
+[25/10/20 04:21:55] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2459, avg_weight=1.0170, weighted_loss=0.4012, strategy=exp
+[25/10/20 04:22:00] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2490, avg_weight=1.0175, weighted_loss=0.4421, strategy=exp
+[25/10/20 04:22:04] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2231, avg_weight=1.0157, weighted_loss=0.3769, strategy=exp
+[25/10/20 04:22:09] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2428, avg_weight=1.0169, weighted_loss=0.4184, strategy=exp
+[25/10/20 04:22:13] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2294, avg_weight=1.0160, weighted_loss=0.3639, strategy=exp
+[25/10/20 04:22:14] [cifar10c_KL_inverse.py:  156]: Corruption: zoom_blur5, Error: 10.64%, Updates: 25/25 (100.0%), Avg_KL: 158.8155, Avg_Weight: 411.2282
+[25/10/20 04:22:14] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:22:18] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3324, avg_weight=1.0233, weighted_loss=0.5485, strategy=exp
+[25/10/20 04:22:22] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2334, avg_weight=1.0161, weighted_loss=0.3974, strategy=exp
+[25/10/20 04:22:26] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2465, avg_weight=1.0171, weighted_loss=0.4537, strategy=exp
+[25/10/20 04:22:30] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2546, avg_weight=1.0178, weighted_loss=0.4522, strategy=exp
+[25/10/20 04:22:35] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2800, avg_weight=1.0195, weighted_loss=0.4781, strategy=exp
+[25/10/20 04:22:39] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2438, avg_weight=1.0170, weighted_loss=0.4368, strategy=exp
+[25/10/20 04:22:44] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2786, avg_weight=1.0193, weighted_loss=0.4862, strategy=exp
+[25/10/20 04:22:48] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2261, avg_weight=1.0155, weighted_loss=0.4231, strategy=exp
+[25/10/20 04:22:53] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2893, avg_weight=1.0202, weighted_loss=0.5026, strategy=exp
+[25/10/20 04:22:57] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3294, avg_weight=1.0232, weighted_loss=0.5510, strategy=exp
+[25/10/20 04:23:02] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2723, avg_weight=1.0190, weighted_loss=0.4495, strategy=exp
+[25/10/20 04:23:07] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2414, avg_weight=1.0167, weighted_loss=0.4526, strategy=exp
+[25/10/20 04:23:11] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2923, avg_weight=1.0203, weighted_loss=0.5142, strategy=exp
+[25/10/20 04:23:16] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2322, avg_weight=1.0160, weighted_loss=0.4430, strategy=exp
+[25/10/20 04:23:21] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2829, avg_weight=1.0197, weighted_loss=0.4811, strategy=exp
+[25/10/20 04:23:25] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2518, avg_weight=1.0175, weighted_loss=0.4550, strategy=exp
+[25/10/20 04:23:30] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2861, avg_weight=1.0198, weighted_loss=0.5157, strategy=exp
+[25/10/20 04:23:34] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3127, avg_weight=1.0219, weighted_loss=0.5355, strategy=exp
+[25/10/20 04:23:38] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2337, avg_weight=1.0161, weighted_loss=0.4226, strategy=exp
+[25/10/20 04:23:43] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2342, avg_weight=1.0162, weighted_loss=0.4169, strategy=exp
+[25/10/20 04:23:48] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2727, avg_weight=1.0190, weighted_loss=0.4859, strategy=exp
+[25/10/20 04:23:52] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2509, avg_weight=1.0173, weighted_loss=0.4502, strategy=exp
+[25/10/20 04:23:57] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2125, avg_weight=1.0147, weighted_loss=0.4099, strategy=exp
+[25/10/20 04:24:01] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2814, avg_weight=1.0195, weighted_loss=0.5324, strategy=exp
+[25/10/20 04:24:06] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2061, avg_weight=1.0143, weighted_loss=0.3787, strategy=exp
+[25/10/20 04:24:07] [cifar10c_KL_inverse.py:  156]: Corruption: snow5, Error: 16.05%, Updates: 25/25 (100.0%), Avg_KL: 152.1187, Avg_Weight: 410.7384
+[25/10/20 04:24:07] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:24:10] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2447, avg_weight=1.0169, weighted_loss=0.4519, strategy=exp
+[25/10/20 04:24:15] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2501, avg_weight=1.0174, weighted_loss=0.4384, strategy=exp
+[25/10/20 04:24:19] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2422, avg_weight=1.0168, weighted_loss=0.4406, strategy=exp
+[25/10/20 04:24:24] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2376, avg_weight=1.0165, weighted_loss=0.4137, strategy=exp
+[25/10/20 04:24:29] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2907, avg_weight=1.0204, weighted_loss=0.5131, strategy=exp
+[25/10/20 04:24:33] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2370, avg_weight=1.0164, weighted_loss=0.4422, strategy=exp
+[25/10/20 04:24:37] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2730, avg_weight=1.0190, weighted_loss=0.4795, strategy=exp
+[25/10/20 04:24:42] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2851, avg_weight=1.0199, weighted_loss=0.5088, strategy=exp
+[25/10/20 04:24:46] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2703, avg_weight=1.0188, weighted_loss=0.4778, strategy=exp
+[25/10/20 04:24:51] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2623, avg_weight=1.0182, weighted_loss=0.4786, strategy=exp
+[25/10/20 04:24:55] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2273, avg_weight=1.0158, weighted_loss=0.4279, strategy=exp
+[25/10/20 04:25:00] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2990, avg_weight=1.0209, weighted_loss=0.5026, strategy=exp
+[25/10/20 04:25:05] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3007, avg_weight=1.0213, weighted_loss=0.5142, strategy=exp
+[25/10/20 04:25:09] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2390, avg_weight=1.0165, weighted_loss=0.4188, strategy=exp
+[25/10/20 04:25:13] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2828, avg_weight=1.0196, weighted_loss=0.5014, strategy=exp
+[25/10/20 04:25:18] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2660, avg_weight=1.0184, weighted_loss=0.4834, strategy=exp
+[25/10/20 04:25:22] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2777, avg_weight=1.0192, weighted_loss=0.4794, strategy=exp
+[25/10/20 04:25:27] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2712, avg_weight=1.0187, weighted_loss=0.4696, strategy=exp
+[25/10/20 04:25:31] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2349, avg_weight=1.0162, weighted_loss=0.4166, strategy=exp
+[25/10/20 04:25:36] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2478, avg_weight=1.0172, weighted_loss=0.4460, strategy=exp
+[25/10/20 04:25:41] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2740, avg_weight=1.0191, weighted_loss=0.4918, strategy=exp
+[25/10/20 04:25:45] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2674, avg_weight=1.0185, weighted_loss=0.4872, strategy=exp
+[25/10/20 04:25:50] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2511, avg_weight=1.0174, weighted_loss=0.4508, strategy=exp
+[25/10/20 04:25:55] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2653, avg_weight=1.0184, weighted_loss=0.4886, strategy=exp
+[25/10/20 04:25:59] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2442, avg_weight=1.0171, weighted_loss=0.4452, strategy=exp
+[25/10/20 04:26:00] [cifar10c_KL_inverse.py:  156]: Corruption: frost5, Error: 15.06%, Updates: 25/25 (100.0%), Avg_KL: 146.8459, Avg_Weight: 410.3534
+[25/10/20 04:26:00] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:26:04] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2258, avg_weight=1.0156, weighted_loss=0.3918, strategy=exp
+[25/10/20 04:26:09] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1910, avg_weight=1.0131, weighted_loss=0.3603, strategy=exp
+[25/10/20 04:26:13] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2637, avg_weight=1.0184, weighted_loss=0.4468, strategy=exp
+[25/10/20 04:26:17] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2322, avg_weight=1.0162, weighted_loss=0.4085, strategy=exp
+[25/10/20 04:26:22] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2571, avg_weight=1.0179, weighted_loss=0.4303, strategy=exp
+[25/10/20 04:26:26] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2110, avg_weight=1.0147, weighted_loss=0.3854, strategy=exp
+[25/10/20 04:26:31] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3038, avg_weight=1.0213, weighted_loss=0.5165, strategy=exp
+[25/10/20 04:26:35] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2454, avg_weight=1.0171, weighted_loss=0.4302, strategy=exp
+[25/10/20 04:26:40] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2529, avg_weight=1.0176, weighted_loss=0.4464, strategy=exp
+[25/10/20 04:26:44] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2186, avg_weight=1.0151, weighted_loss=0.4080, strategy=exp
+[25/10/20 04:26:48] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1898, avg_weight=1.0131, weighted_loss=0.3386, strategy=exp
+[25/10/20 04:26:52] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2336, avg_weight=1.0162, weighted_loss=0.4397, strategy=exp
+[25/10/20 04:26:57] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2245, avg_weight=1.0155, weighted_loss=0.4270, strategy=exp
+[25/10/20 04:27:01] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1902, avg_weight=1.0131, weighted_loss=0.3660, strategy=exp
+[25/10/20 04:27:05] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2262, avg_weight=1.0159, weighted_loss=0.4359, strategy=exp
+[25/10/20 04:27:09] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2032, avg_weight=1.0140, weighted_loss=0.3643, strategy=exp
+[25/10/20 04:27:13] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2183, avg_weight=1.0151, weighted_loss=0.4179, strategy=exp
+[25/10/20 04:27:17] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2346, avg_weight=1.0165, weighted_loss=0.4337, strategy=exp
+[25/10/20 04:27:22] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1970, avg_weight=1.0136, weighted_loss=0.3888, strategy=exp
+[25/10/20 04:27:26] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1662, avg_weight=1.0115, weighted_loss=0.3284, strategy=exp
+[25/10/20 04:27:30] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1869, avg_weight=1.0128, weighted_loss=0.3730, strategy=exp
+[25/10/20 04:27:35] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2126, avg_weight=1.0147, weighted_loss=0.4055, strategy=exp
+[25/10/20 04:27:40] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2341, avg_weight=1.0163, weighted_loss=0.4246, strategy=exp
+[25/10/20 04:27:44] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2229, avg_weight=1.0154, weighted_loss=0.4051, strategy=exp
+[25/10/20 04:27:49] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2131, avg_weight=1.0148, weighted_loss=0.3878, strategy=exp
+[25/10/20 04:27:50] [cifar10c_KL_inverse.py:  156]: Corruption: fog5, Error: 13.47%, Updates: 25/25 (100.0%), Avg_KL: 141.0489, Avg_Weight: 409.9346
+[25/10/20 04:27:50] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:27:53] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1327, avg_weight=1.0093, weighted_loss=0.2431, strategy=exp
+[25/10/20 04:27:57] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1286, avg_weight=1.0089, weighted_loss=0.2344, strategy=exp
+[25/10/20 04:28:02] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1631, avg_weight=1.0113, weighted_loss=0.2870, strategy=exp
+[25/10/20 04:28:07] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1594, avg_weight=1.0111, weighted_loss=0.2764, strategy=exp
+[25/10/20 04:28:11] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1696, avg_weight=1.0118, weighted_loss=0.3049, strategy=exp
+[25/10/20 04:28:16] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1656, avg_weight=1.0117, weighted_loss=0.2973, strategy=exp
+[25/10/20 04:28:20] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1588, avg_weight=1.0110, weighted_loss=0.2783, strategy=exp
+[25/10/20 04:28:25] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1573, avg_weight=1.0109, weighted_loss=0.2741, strategy=exp
+[25/10/20 04:28:29] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1673, avg_weight=1.0118, weighted_loss=0.2841, strategy=exp
+[25/10/20 04:28:34] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1810, avg_weight=1.0127, weighted_loss=0.2980, strategy=exp
+[25/10/20 04:28:38] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1423, avg_weight=1.0098, weighted_loss=0.2541, strategy=exp
+[25/10/20 04:28:43] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1623, avg_weight=1.0112, weighted_loss=0.3031, strategy=exp
+[25/10/20 04:28:47] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1716, avg_weight=1.0120, weighted_loss=0.2828, strategy=exp
+[25/10/20 04:28:52] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1615, avg_weight=1.0113, weighted_loss=0.2780, strategy=exp
+[25/10/20 04:28:57] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2415, avg_weight=1.0171, weighted_loss=0.3845, strategy=exp
+[25/10/20 04:29:01] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1783, avg_weight=1.0124, weighted_loss=0.3076, strategy=exp
+[25/10/20 04:29:06] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1924, avg_weight=1.0134, weighted_loss=0.3435, strategy=exp
+[25/10/20 04:29:10] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1671, avg_weight=1.0117, weighted_loss=0.2980, strategy=exp
+[25/10/20 04:29:15] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1641, avg_weight=1.0114, weighted_loss=0.2620, strategy=exp
+[25/10/20 04:29:19] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1658, avg_weight=1.0115, weighted_loss=0.2896, strategy=exp
+[25/10/20 04:29:24] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1817, avg_weight=1.0125, weighted_loss=0.3008, strategy=exp
+[25/10/20 04:29:29] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1723, avg_weight=1.0119, weighted_loss=0.3058, strategy=exp
+[25/10/20 04:29:33] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1533, avg_weight=1.0106, weighted_loss=0.2666, strategy=exp
+[25/10/20 04:29:38] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1819, avg_weight=1.0126, weighted_loss=0.3212, strategy=exp
+[25/10/20 04:29:42] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1426, avg_weight=1.0098, weighted_loss=0.2516, strategy=exp
+[25/10/20 04:29:43] [cifar10c_KL_inverse.py:  156]: Corruption: brightness5, Error: 7.70%, Updates: 25/25 (100.0%), Avg_KL: 134.2804, Avg_Weight: 409.4526
+[25/10/20 04:29:43] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:29:47] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2035, avg_weight=1.0142, weighted_loss=0.3712, strategy=exp
+[25/10/20 04:29:51] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1824, avg_weight=1.0126, weighted_loss=0.3572, strategy=exp
+[25/10/20 04:29:56] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1609, avg_weight=1.0111, weighted_loss=0.3369, strategy=exp
+[25/10/20 04:30:01] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1573, avg_weight=1.0109, weighted_loss=0.3262, strategy=exp
+[25/10/20 04:30:05] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1751, avg_weight=1.0121, weighted_loss=0.3490, strategy=exp
+[25/10/20 04:30:10] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2060, avg_weight=1.0145, weighted_loss=0.4059, strategy=exp
+[25/10/20 04:30:14] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1792, avg_weight=1.0124, weighted_loss=0.3593, strategy=exp
+[25/10/20 04:30:19] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1669, avg_weight=1.0116, weighted_loss=0.3438, strategy=exp
+[25/10/20 04:30:23] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1934, avg_weight=1.0137, weighted_loss=0.3743, strategy=exp
+[25/10/20 04:30:27] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2208, avg_weight=1.0155, weighted_loss=0.4293, strategy=exp
+[25/10/20 04:30:32] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1568, avg_weight=1.0108, weighted_loss=0.3144, strategy=exp
+[25/10/20 04:30:36] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2026, avg_weight=1.0141, weighted_loss=0.3994, strategy=exp
+[25/10/20 04:30:40] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2293, avg_weight=1.0159, weighted_loss=0.4313, strategy=exp
+[25/10/20 04:30:44] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1893, avg_weight=1.0132, weighted_loss=0.3947, strategy=exp
+[25/10/20 04:30:49] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2131, avg_weight=1.0148, weighted_loss=0.4092, strategy=exp
+[25/10/20 04:30:54] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2064, avg_weight=1.0143, weighted_loss=0.3757, strategy=exp
+[25/10/20 04:30:58] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2071, avg_weight=1.0143, weighted_loss=0.4093, strategy=exp
+[25/10/20 04:31:03] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1920, avg_weight=1.0134, weighted_loss=0.3941, strategy=exp
+[25/10/20 04:31:07] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1626, avg_weight=1.0112, weighted_loss=0.3242, strategy=exp
+[25/10/20 04:31:12] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1868, avg_weight=1.0130, weighted_loss=0.3718, strategy=exp
+[25/10/20 04:31:16] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2086, avg_weight=1.0145, weighted_loss=0.4217, strategy=exp
+[25/10/20 04:31:20] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2010, avg_weight=1.0142, weighted_loss=0.4146, strategy=exp
+[25/10/20 04:31:25] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1667, avg_weight=1.0116, weighted_loss=0.3414, strategy=exp
+[25/10/20 04:31:29] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2059, avg_weight=1.0144, weighted_loss=0.4024, strategy=exp
+[25/10/20 04:31:33] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2032, avg_weight=1.0142, weighted_loss=0.4039, strategy=exp
+[25/10/20 04:31:34] [cifar10c_KL_inverse.py:  156]: Corruption: contrast5, Error: 11.65%, Updates: 25/25 (100.0%), Avg_KL: 129.4596, Avg_Weight: 409.1084
+[25/10/20 04:31:34] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:31:38] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3477, avg_weight=1.0243, weighted_loss=0.6057, strategy=exp
+[25/10/20 04:31:42] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3074, avg_weight=1.0213, weighted_loss=0.5495, strategy=exp
+[25/10/20 04:31:47] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2932, avg_weight=1.0203, weighted_loss=0.5416, strategy=exp
+[25/10/20 04:31:51] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3250, avg_weight=1.0226, weighted_loss=0.6039, strategy=exp
+[25/10/20 04:31:56] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3136, avg_weight=1.0218, weighted_loss=0.5948, strategy=exp
+[25/10/20 04:32:00] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3257, avg_weight=1.0227, weighted_loss=0.6036, strategy=exp
+[25/10/20 04:32:05] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3300, avg_weight=1.0229, weighted_loss=0.5893, strategy=exp
+[25/10/20 04:32:10] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2848, avg_weight=1.0197, weighted_loss=0.5163, strategy=exp
+[25/10/20 04:32:14] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3227, avg_weight=1.0224, weighted_loss=0.6602, strategy=exp
+[25/10/20 04:32:19] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2855, avg_weight=1.0197, weighted_loss=0.6323, strategy=exp
+[25/10/20 04:32:23] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2854, avg_weight=1.0197, weighted_loss=0.5066, strategy=exp
+[25/10/20 04:32:28] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3498, avg_weight=1.0243, weighted_loss=0.7119, strategy=exp
+[25/10/20 04:32:32] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3114, avg_weight=1.0215, weighted_loss=0.6782, strategy=exp
+[25/10/20 04:32:37] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3142, avg_weight=1.0217, weighted_loss=0.5713, strategy=exp
+[25/10/20 04:32:42] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3610, avg_weight=1.0251, weighted_loss=0.6316, strategy=exp
+[25/10/20 04:32:46] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3737, avg_weight=1.0260, weighted_loss=0.6377, strategy=exp
+[25/10/20 04:32:51] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2929, avg_weight=1.0201, weighted_loss=0.6625, strategy=exp
+[25/10/20 04:32:55] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2930, avg_weight=1.0202, weighted_loss=0.6571, strategy=exp
+[25/10/20 04:32:59] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2663, avg_weight=1.0183, weighted_loss=0.5085, strategy=exp
+[25/10/20 04:33:03] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2852, avg_weight=1.0197, weighted_loss=0.6402, strategy=exp
+[25/10/20 04:33:07] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3025, avg_weight=1.0209, weighted_loss=0.6940, strategy=exp
+[25/10/20 04:33:12] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2541, avg_weight=1.0175, weighted_loss=0.5944, strategy=exp
+[25/10/20 04:33:16] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2955, avg_weight=1.0205, weighted_loss=0.5495, strategy=exp
+[25/10/20 04:33:21] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3080, avg_weight=1.0213, weighted_loss=0.5823, strategy=exp
+[25/10/20 04:33:26] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3146, avg_weight=1.0218, weighted_loss=0.5767, strategy=exp
+[25/10/20 04:33:27] [cifar10c_KL_inverse.py:  156]: Corruption: elastic_transform5, Error: 19.68%, Updates: 25/25 (100.0%), Avg_KL: 129.0314, Avg_Weight: 409.0675
+[25/10/20 04:33:27] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:33:30] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2716, avg_weight=1.0189, weighted_loss=0.5326, strategy=exp
+[25/10/20 04:33:35] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2147, avg_weight=1.0148, weighted_loss=0.4255, strategy=exp
+[25/10/20 04:33:40] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2201, avg_weight=1.0151, weighted_loss=0.4220, strategy=exp
+[25/10/20 04:33:44] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2664, avg_weight=1.0185, weighted_loss=0.4956, strategy=exp
+[25/10/20 04:33:49] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2210, avg_weight=1.0152, weighted_loss=0.4515, strategy=exp
+[25/10/20 04:33:53] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2465, avg_weight=1.0171, weighted_loss=0.4897, strategy=exp
+[25/10/20 04:33:58] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2429, avg_weight=1.0167, weighted_loss=0.4850, strategy=exp
+[25/10/20 04:34:03] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2413, avg_weight=1.0167, weighted_loss=0.4480, strategy=exp
+[25/10/20 04:34:07] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2768, avg_weight=1.0193, weighted_loss=0.5062, strategy=exp
+[25/10/20 04:34:12] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1828, avg_weight=1.0125, weighted_loss=0.3849, strategy=exp
+[25/10/20 04:34:16] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2189, avg_weight=1.0151, weighted_loss=0.4337, strategy=exp
+[25/10/20 04:34:20] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2502, avg_weight=1.0173, weighted_loss=0.4897, strategy=exp
+[25/10/20 04:34:24] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2437, avg_weight=1.0169, weighted_loss=0.4776, strategy=exp
+[25/10/20 04:34:29] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1891, avg_weight=1.0130, weighted_loss=0.3848, strategy=exp
+[25/10/20 04:34:33] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2504, avg_weight=1.0173, weighted_loss=0.4815, strategy=exp
+[25/10/20 04:34:38] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2440, avg_weight=1.0170, weighted_loss=0.4823, strategy=exp
+[25/10/20 04:34:42] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2446, avg_weight=1.0169, weighted_loss=0.5647, strategy=exp
+[25/10/20 04:34:46] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2739, avg_weight=1.0191, weighted_loss=0.5145, strategy=exp
+[25/10/20 04:34:50] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2154, avg_weight=1.0149, weighted_loss=0.4363, strategy=exp
+[25/10/20 04:34:54] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2489, avg_weight=1.0174, weighted_loss=0.4811, strategy=exp
+[25/10/20 04:34:59] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3211, avg_weight=1.0224, weighted_loss=0.5716, strategy=exp
+[25/10/20 04:35:03] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2505, avg_weight=1.0173, weighted_loss=0.4700, strategy=exp
+[25/10/20 04:35:08] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2327, avg_weight=1.0161, weighted_loss=0.4288, strategy=exp
+[25/10/20 04:35:12] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2703, avg_weight=1.0187, weighted_loss=0.5008, strategy=exp
+[25/10/20 04:35:16] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2263, avg_weight=1.0156, weighted_loss=0.4435, strategy=exp
+[25/10/20 04:35:18] [cifar10c_KL_inverse.py:  156]: Corruption: pixelate5, Error: 15.32%, Updates: 25/25 (100.0%), Avg_KL: 126.7454, Avg_Weight: 408.8995
+[25/10/20 04:35:18] [cifar10c_KL_inverse.py:  121]: not resetting model
+[25/10/20 04:35:21] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3108, avg_weight=1.0215, weighted_loss=0.6124, strategy=exp
+[25/10/20 04:35:26] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3570, avg_weight=1.0249, weighted_loss=0.6256, strategy=exp
+[25/10/20 04:35:30] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3059, avg_weight=1.0215, weighted_loss=0.5686, strategy=exp
+[25/10/20 04:35:35] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2565, avg_weight=1.0177, weighted_loss=0.5762, strategy=exp
+[25/10/20 04:35:39] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2629, avg_weight=1.0181, weighted_loss=0.5838, strategy=exp
+[25/10/20 04:35:43] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2910, avg_weight=1.0201, weighted_loss=0.5741, strategy=exp
+[25/10/20 04:35:48] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2667, avg_weight=1.0184, weighted_loss=0.5946, strategy=exp
+[25/10/20 04:35:52] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2105, avg_weight=1.0144, weighted_loss=0.5371, strategy=exp
+[25/10/20 04:35:57] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2345, avg_weight=1.0160, weighted_loss=0.5881, strategy=exp
+[25/10/20 04:36:01] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2417, avg_weight=1.0166, weighted_loss=0.5426, strategy=exp
+[25/10/20 04:36:06] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3065, avg_weight=1.0212, weighted_loss=0.5653, strategy=exp
+[25/10/20 04:36:10] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2229, avg_weight=1.0152, weighted_loss=0.5410, strategy=exp
+[25/10/20 04:36:15] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2650, avg_weight=1.0182, weighted_loss=0.5388, strategy=exp
+[25/10/20 04:36:20] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2119, avg_weight=1.0145, weighted_loss=0.5351, strategy=exp
+[25/10/20 04:36:24] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2248, avg_weight=1.0155, weighted_loss=0.5647, strategy=exp
+[25/10/20 04:36:29] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2215, avg_weight=1.0152, weighted_loss=0.5657, strategy=exp
+[25/10/20 04:36:33] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3348, avg_weight=1.0233, weighted_loss=0.6099, strategy=exp
+[25/10/20 04:36:37] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2158, avg_weight=1.0149, weighted_loss=0.5407, strategy=exp
+[25/10/20 04:36:42] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2433, avg_weight=1.0167, weighted_loss=0.5733, strategy=exp
+[25/10/20 04:36:46] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1946, avg_weight=1.0134, weighted_loss=0.5164, strategy=exp
+[25/10/20 04:36:50] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.1938, avg_weight=1.0132, weighted_loss=0.5207, strategy=exp
+[25/10/20 04:36:54] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.3367, avg_weight=1.0236, weighted_loss=0.6318, strategy=exp
+[25/10/20 04:36:59] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2798, avg_weight=1.0194, weighted_loss=0.5397, strategy=exp
+[25/10/20 04:37:03] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2168, avg_weight=1.0149, weighted_loss=0.5457, strategy=exp
+[25/10/20 04:37:08] [kl_inverse_cotta.py:  141]: KL-Inverse: avg_KL=0.2367, avg_weight=1.0163, weighted_loss=0.5803, strategy=exp
+[25/10/20 04:37:08] [cifar10c_KL_inverse.py:  156]: Corruption: jpeg_compression5, Error: 19.07%, Updates: 25/25 (100.0%), Avg_KL: 125.1677, Avg_Weight: 408.7806
+[25/10/20 04:37:08] [cifar10c_KL_inverse.py:  169]: ============================================================
+[25/10/20 04:37:08] [cifar10c_KL_inverse.py:  173]: KL-Inverse CoTTA Results (tau=15.0, eps=1e-08, strategy=exp):
+[25/10/20 04:37:08] [cifar10c_KL_inverse.py:  174]: Overall Error: 17.07%
+[25/10/20 04:37:08] [cifar10c_KL_inverse.py:  175]: Total Efficiency: 100.0% (375/375 updates)
+[25/10/20 04:37:08] [cifar10c_KL_inverse.py:  176]: Average Error per Corruption: 17.07%
+[25/10/20 04:37:08] [cifar10c_KL_inverse.py:  177]: Overall Average KL: 125.1677
+[25/10/20 04:37:08] [cifar10c_KL_inverse.py:  178]: Overall Average Weight: 408.7806
+[25/10/20 04:37:08] [cifar10c_KL_inverse.py:  179]: ============================================================
