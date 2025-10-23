@@ -54,61 +54,35 @@ This repository includes several enhanced variants of CoTTA with KL-Gate mechani
   - `--eps`: Numerical stability parameter
 - **Usage**: `bash run_kl_regu.sh baseline|kl_regu|custom [tau] [eps]`
 
-### 4. KL-Force CoTTA (Forced Updates)
-- **File**: `kl_force_cotta.py`, `cifar10c_KL_force.py`
-- **Script**: `run_kl_force.sh`
-- **Description**: Forced update mechanism to prevent learning stagnation
+### 4. KL-Inverse CoTTA (Inverse Weighting)
+- **File**: `kl_inverse_cotta.py`, `cifar10c_KL_inverse.py`
+- **Script**: `run_kl_inverse.sh`
+- **Description**: Inverse weighting mechanism that emphasizes samples with high KL divergence
 - **Rationale & Hypothesis**:
-  - **Core Idea**: Address the static threshold problem by forcing updates after consecutive skips
-  - **Problem Addressed**: Original KL-Gate can get stuck in high-disagreement states, completely halting learning
+  - **Core Idea**: Instead of down-weighting high KL samples (like KL-Regu), emphasize them with higher weights
+  - **Mathematical Formulation**: 
+    - Exponential: `w_i = exp(KL_i / τ)`
+    - Reciprocal: `w_i = 1 / (KL_i + ε)`
+    - Linear: `w_i = 1 + KL_i / τ`
+    - Weighted loss: `L = (Σ_i w_i L_i) / (Σ_i w_i + ε)`
   - **Assumptions**:
-    - Even high-disagreement samples might contain useful information after some time
-    - Periodic forced updates can help escape local minima
-    - Adaptive threshold adjustment based on recent KL values is more intelligent than fixed threshold
+    - High disagreement samples contain more informative signal for adaptation
+    - Emphasizing difficult samples can improve model robustness
+    - Different weighting strategies may work better for different scenarios
   - **Expected Benefits**:
-    - Prevents complete learning stagnation
-    - Maintains computational efficiency most of the time
-    - Adaptive variant can learn optimal thresholds from data
+    - Focus learning on challenging samples where teacher-student disagree
+    - Improve adaptation to difficult test-time conditions
+    - Multiple weighting strategies provide flexibility
 - **Key Features**:
-  - Forces updates after consecutive skips reach a threshold
-  - Optional adaptive threshold adjustment based on recent KL values
-  - Maintains efficiency while preventing complete learning halt
+  - Three weighting strategies: exponential, reciprocal, and linear
+  - Configurable temperature parameter for controlling emphasis strength
+  - Numerical stability with epsilon parameter
+  - Comprehensive statistics tracking for monitoring adaptation behavior
 - **Parameters**:
-  - `--thr`: Initial KL threshold
-  - `--force_interval`: Number of consecutive skips before forced update
-  - `--adaptive`: Enable adaptive threshold adjustment
-- **Usage**: `bash run_kl_force.sh baseline|force|adaptive|custom [threshold] [interval] [adaptive]`
-
-### 5. KL-Adaptive CoTTA (Adaptive Threshold)
-- **File**: `kl_adaptive_cotta.py`, `cifar10c_KL_adaptive.py`
-- **Script**: `run_kl_adaptive.sh`
-- **Description**: Adaptive threshold adjustment based on update ratio and warmup phase
-- **Rationale & Hypothesis**:
-  - **Core Idea**: Learn optimal threshold from data and adapt it based on update patterns
-  - **Warmup Phase Hypothesis**: Initial samples can provide a good estimate of typical KL divergence distribution
-  - **Adaptive Adjustment Hypothesis**: 
-    - Low update ratio (< 20%) suggests threshold is too strict → decrease threshold
-    - High update ratio (> 80%) suggests threshold is too loose → increase threshold
-  - **Assumptions**:
-    - Optimal update ratio should be in a reasonable range (e.g., 20%-80%)
-    - KL divergence distribution is relatively stable within a corruption type
-    - Dynamic threshold adjustment can better adapt to different data characteristics
-  - **Expected Benefits**:
-    - Data-driven threshold selection (no manual tuning)
-    - Automatic adaptation to different corruption types
-    - Balanced learning efficiency and effectiveness
-- **Key Features**:
-  - Warmup phase learns initial threshold from first 100 samples
-  - Dynamically adjusts threshold based on update frequency
-  - Balances update efficiency and learning effectiveness
-- **Parameters**:
-  - `--thr`: Initial threshold (overridden by warmup)
-  - `--check_interval`: Samples between threshold checks
-  - `--low_threshold`: Low update ratio threshold (decrease KL threshold)
-  - `--high_threshold`: High update ratio threshold (increase KL threshold)
-  - `--scale_factor`: Scale factor for threshold adjustment
-  - `--warmup_samples`: Number of warmup samples for initial threshold learning
-- **Usage**: `bash run_kl_adaptive.sh baseline|adaptive|custom [threshold] [check_interval] [low_threshold] [high_threshold] [scale_factor] [warmup_samples]`
+  - `--tau`: Temperature parameter (higher = stronger emphasis on high KL)
+  - `--eps`: Numerical stability parameter
+  - `--strategy`: Weighting strategy (exp, reciprocal, linear)
+- **Usage**: `bash run_kl_inverse.sh baseline|inverse_exp|inverse_reciprocal|inverse_linear|custom [tau] [strategy] [eps]`
   
 ## Tasks
 + CIFAR10 -> CIFAR10C (standard)
@@ -142,16 +116,13 @@ bash run_kl_regu.sh baseline      # Baseline CoTTA
 bash run_kl_regu.sh kl_regu       # KL-Regu (tau=1.0)
 bash run_kl_regu.sh custom 0.5    # Custom tau
 
-# KL-Force CoTTA (Forced Updates)
-bash run_kl_force.sh baseline         # Baseline CoTTA
-bash run_kl_force.sh force            # Basic forced updates
-bash run_kl_force.sh adaptive         # Adaptive threshold
-bash run_kl_force.sh custom 0.1 5 True  # Custom parameters
-
-# KL-Adaptive CoTTA (Adaptive Threshold)
-bash run_kl_adaptive.sh baseline      # Baseline CoTTA
-bash run_kl_adaptive.sh adaptive      # Default adaptive settings
-bash run_kl_adaptive.sh custom 0.1 10 0.2 0.8 1.2 100  # Custom parameters
+# KL-Inverse CoTTA (Inverse Weighting)
+bash run_kl_inverse.sh baseline           # Baseline CoTTA
+bash run_kl_inverse.sh inverse_exp        # KL-Inverse with exp strategy (tau=1.0)
+bash run_kl_inverse.sh inverse_reciprocal # KL-Inverse with reciprocal strategy (tau=1.0)
+bash run_kl_inverse.sh inverse_linear     # KL-Inverse with linear strategy (tau=1.0)
+bash run_kl_inverse.sh custom 2.0 exp     # Custom tau and strategy
+bash run_kl_inverse.sh custom 2.0 reciprocal 1e-6  # Custom parameters
 ```
 
 
@@ -164,20 +135,18 @@ The enhanced CoTTA variants address the static threshold limitation in the origi
 | **KL-Gate** | Hard gating with static threshold | Simple, efficient | Known optimal threshold |
 | **KL-Gate-Rev** | Reverse logic (skip high agreement) | Filters noise, saves computation | Noisy environments |
 | **KL-Regu** | Soft weighting based on KL | Smooth adaptation, no stagnation | Fine-grained control needed |
-| **KL-Force** | Forced updates after skips | Prevents complete stagnation | Environments prone to stagnation |
-| **KL-Adaptive** | Dynamic threshold adjustment | Self-tuning, data-driven | Unknown optimal threshold |
+| **KL-Inverse** | Inverse weighting emphasizing high KL | Focuses on challenging samples | Difficult test conditions |
 
 ### Key Improvements:
 1. **Prevents Learning Stagnation**: All variants address the core issue of static thresholds
 2. **Maintains Efficiency**: Most variants preserve the computational benefits of selective updates
-3. **Data-Driven Adaptation**: KL-Adaptive learns optimal thresholds from data
-4. **Flexible Control**: Multiple parameters allow fine-tuning for different scenarios
+3. **Flexible Weighting**: KL-Regu and KL-Inverse provide continuous weighting options
+4. **Multiple Strategies**: KL-Inverse offers three different weighting approaches
 
 ### Recommended Usage:
 - **KL-Gate-Rev**: When you want to filter out potentially noisy consistent predictions
-- **KL-Regu**: When you need smooth, continuous adaptation without hard decisions
-- **KL-Force**: When you're concerned about complete learning halt
-- **KL-Adaptive**: When you want automatic threshold optimization
+- **KL-Regu**: When you need smooth, continuous adaptation with down-weighting of high KL samples
+- **KL-Inverse**: When you want to emphasize challenging samples with high teacher-student disagreement
 
 ## Acknowledgement 
 + Original CoTTA implementation: [official](https://github.com/qinenergy/cotta)
